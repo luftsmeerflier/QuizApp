@@ -1,3 +1,12 @@
+* {
+  box-sizing: border-box;
+}
+
+body, html{
+  height: 100%;
+  height: 100vh;
+}
+
 html{
   background-image: url("./silicon-chip.jpg");
   background-size: cover;
@@ -23,6 +32,14 @@ header {
   height: 15%;
 }
 
+main {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  justify-content: center;
+}
+
 article {
   display: flex;
   flex-direction: column;
@@ -31,14 +48,6 @@ article {
   padding: 1em;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-}
-
-main {
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  justify-content: center;
 }
 
 #start-quiz {
@@ -58,57 +67,129 @@ ul {
   margin: 1em;
 }
 
-/*ul:before {
-  padding-top: 100%;
-}*/
+
+article.multiple-choice {
+
+}
+
+ul.example-boxes {
+  margin: 0px;
+  display: flex
+  flex-wrap: wrap;
+}
+
 
 li {
-  position: ;
   list-style: none;
   background-color: white;
-  width: 20%;
-  height: auto;
   margin: 1px;
+} 
+
+
+#target{
+  align-self: center;
+  margin-top: 1em;
 }
 
-.lightning{
+/*JS functionality*/
+.box {
   background-color: white;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  color: white; 
+  width: 20%;
+  padding-top: 20%;
 }
-/*@media (max-width:500px){
-  li  {
-    height: 2.5em;
-    width: 2.5em;
-    background-color: white;
-    margin: 8px;
-    list-style: none;
-    text-align: center;
-    padding: 0.5em;
-    padding-bottom: 0;
-    padding-right: 0.2em;
-  }
 
-  main {
-
-  }
-  .tall {
-    height: 4.2em
-  }
+.clicked {
+  content: url('../lightning-icon.png');
+  padding-top: 0;
+  height: 20%;
 }
-*/
 
 
+.lightning {
+  content: url('../lightning-icon.png');
+  padding-top: 0;
+  height: 20%;
+}
+
+p {
+  text-align: center;
+  margin: 0.2rem;
+  display: block;
+  font-size: 35px;
+}
+
+.output {
+  background-color: #f8f5f7;
+  text-align: center;
+  border-size: border-box;
+  border: 0.2em solid #e6e77f;
+  border-radius: 10%;
+  margin: 5em;
+}
+
+.results-section, section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 1.2em;
+  height: 2.5em;
+}
+
+.last {
+  margin: 0;
+}
+
+.result {
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.intro {
+
+html{
+  background-image: url("./silicon-chip.jpg");
+  background-size: cover;
+  background-repeat: round;
+  background-position: center;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main, article, header {
+  background-color: #95daa8;
+  border: 0.75rem solid #e6e77f;
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+header {
+  height: 15%;
+}
+
+
+
+#start-quiz {
+  display: flex;
+  align-self: center;
+  margin: 1em;
+}main
 /*JS functionality*/
 .unclicked {
   background-color: white;
   color: white; 
   padding-top: 20%;
 
+}
+
+.click {
+  height: 100%;
+  width: 100%;
 }
 
 .clicked {
@@ -150,6 +231,12 @@ p {
   display: inline-block;
 }
 
-.intro {
-
+.example-boxes {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  box-sizing: border-box;
+  margin: 1em;
 }
+
+/* Fade in the currently hovered item */
