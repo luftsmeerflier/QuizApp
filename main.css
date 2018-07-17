@@ -100,7 +100,7 @@ li {
 }
 
 .clicked {
-  content: url('../lightning-icon.png');
+  content: url('./lightning-icon.png');
   padding-top: 0;
   height: 20%;
 }
