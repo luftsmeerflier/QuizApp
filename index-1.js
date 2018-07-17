@@ -31,22 +31,21 @@ function landingPage(){
 	); 	
 };
 
-function addClickFunctionality(){
+const addClickFunctionality = function(){
 	const VALUES = [0];
 	unclickedBoxes(VALUES);
 	clickedBoxes(VALUES);
 }
 
-function startQuiz(){
+const startQuiz = function(){
 	$('#start-quiz input[type=submit], #start-quiz button').on('click', function(event) { 
 		event.preventDefault();
 		generateQuizPage();
 	});
 }
 
-
 //addClickFunctionality support functions:
-	function unclickedBoxes(VALUES){
+	const unclickedBoxes = function(VALUES){
 		$('ul').on('click', '.unclicked', function(){
 			const num = $(this).data('id');
 			VALUES.push(num);
@@ -57,7 +56,7 @@ function startQuiz(){
 		});
 	}
 
-	function clickedBoxes(VALUES){
+	const clickedBoxes = function(VALUES){
 		$('ul').on('click', '.clicked', function(){
 			const num = $(this).data('id');
 			const indexToRemove = VALUES.indexOf(num);
@@ -70,36 +69,31 @@ function startQuiz(){
 		});
 	}
 
-	function remove(){
+	const remove = function(){
 		$('main').find('.output').remove();
 	}
 
-	function appendTotal(VALUES){
+	const appendTotal = function(VALUES){
 		$('.result').append(`<span class='output'>${getTotal(VALUES)}</span>`);
 	}
 
-	function getTotal(VALUES){
+	const getTotal = function(VALUES){
 		const val = VALUES.reduce(reducer);
 		const hex = val.toString(16);
 		return `0x${hex}`;
 	}
 
-	function reducer(total, number){
+	const reducer = function(total, number){
 		return total + number;
 	}
 
+
+
 //generateQuizPage
-
-
-
-
-
-
-
-
 const generateQuizPage = function(){
 	removeLanding();
 	nextQuestion(makeArray());
+	//appendUserBrief(randGen());
 }
 
 const removeLanding = function(){
@@ -117,7 +111,6 @@ const makeArray = function(){
 }
 
 const nextQuestion = function(numberArray){
-
 	$('.box').each(function(i){
 		if(numberArray[i] == "0"){
 			$(this).removeClass('clicked unclicked');
@@ -129,16 +122,56 @@ const nextQuestion = function(numberArray){
 	});
 }
 
+const appendUserBrief = function(answer){
+//$('main').prepend(`<article><p>${generatedNumber}</p></article>`);
+	$('main').append(
+		`<article class='multiple-choice'>
+			<ul class='example-boxes'>
+				<li class='options'></div></li>
+				<li class='options'></div></li>
+				<li class='options'></div></li>
+				<li class='options'></div></li>
+			</ul>
+		</article>
+	`);	
+//optionBoxes(answer);
 
-//Generates random number 0-15
-var randGen = function(){
-	return Math.floor(Math.random() * 15);
+
+const optionBoxes = function(answer){
+	// debugger;
+	var answerBox = Math.floor(Math.random() * 4);
+	var array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+	$('.options').each(function(index){
+		if(index === answerBox){
+			$(this).append(answer);
+			removeArrayElement(answer, array);
+			//take away the correct answer from the possilibities of the remainder
+		} else {
+			var num = nextBoxes(array); 
+			$(this).append(num);	
+			removeArrayElement(num, array);		
+		};
+	});
 }
 
+const removeArrayElement = function(input, arr){
+	var index = array.indexOf(input);
+	arr.splice(index, 1);
+}
+
+const nextBoxes = function(arr){
+	var arraylength = arr.length; 
+	var num = Math.floor(Math.random() * (arraylength - 1));
+	var nextIndex = arr.indexOf(num);
+	return arr[nextIndex];
+}
+//Generates random number 0-15
+const randGen = function(){
+	return Math.floor(Math.random() * 15);
+}
 //returns "0100", "1000", etc.
-var dec2bin = function(){
+const dec2bin = function(){
 	let num = randGen();
-	appendUserBrief(num);
 	if(num === 0){
 		return "0000";
 	} else if(num === 1){
@@ -176,67 +209,15 @@ var dec2bin = function(){
 	}
 }
 
-function appendUserBrief(answer){
-	//$('main').prepend(`<article><p>${generatedNumber}</p></article>`);
-	$('main').append(
-		`<article class='multiple-choice'>
-			<ul class='example-boxes'>
-				<li class='options'></div></li>
-				<li class='options'></div></li>
-				<li class='options'></div></li>
-				<li class='options'></div></li>
-			</ul>
-		</article>
-			<form id="target" action="destination.html">
-			  <input type="submit" value="Answer">
-			</form>
-			`);	
-
-	optionBoxes(answer);
-	$('#start-quiz input[type=submit], #start-quiz button').on('click', function(event) { 
-		event.preventDefault();
-		generateQuizPage();
-	});
-}
-
-const optionBoxes = function(answer){
-	// debugger;
-	let answerBox = Math.floor(Math.random() * 4);
-	let array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-	$('.options').each(function(index){
-		if(index === answerBox){
-			$(this).append(answer);
-			removeArrayElement(answer, array);
-			//take away the correct answer from the possilibities of the remainder
-		} else {
-			var num = nextBoxes(array); 
-			$(this).append(num);	
-			removeArrayElement(num, array);		
-		};
-	});
-	function removeArrayElement(input, arr){
-		var index = array.indexOf(input);
-		arr.splice(index, 1);
-	}
-	function nextBoxes(arr){
-		var arraylength = arr.length; 
-		var num = Math.floor(Math.random() * (arraylength - 1));
-		var nextIndex = arr.indexOf(num);
-		return arr[nextIndex];
-	}
-}
-
-	const highlightAnswer = function(options){
-		$(options).on('click', function(){
-			if($(this).html() == answer){
-				$(this).animateHighlight("#cce98e", 1000);
-			} else {
-				$(this).animateHighlight("red", 1000);
-			}
-		});
-	}
-
-
+// const highlightAnswer = function(){
+// 	$('.options').on('click', function(){
+// 		if($(this).html() == answer){
+// 			$(this).animateHighlight("#cce98e", 1000);
+// 		} else {
+// 			$(this).animateHighlight("red", 1000);
+// 		}
+// 	});
+// }
 
 // var notLocked = true;
 // $.fn.animateHighlight = function(highlightColor, duration) {
@@ -250,6 +231,34 @@ const optionBoxes = function(answer){
 //         setTimeout( function() { notLocked = true; }, animateMs);
 //     }
 // };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	// const optionsBoxes = function(answer){
 	// 	const answerBox = Math.floor(Math.random() * 4);
@@ -291,3 +300,9 @@ const optionBoxes = function(answer){
 
 
 // var rightAnswers = [];
+
+
+
+
+
+
