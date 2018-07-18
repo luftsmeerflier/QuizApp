@@ -1,21 +1,12 @@
 $(function(){
-	landingPage();
-	addClickFunctionality();
+	generateLandingPage();
+	clickFunctionalityBoxes();
 	startQuiz();
 });	
 
 //Landing Page Generation
-function landingPage(){
-	$('main').append(
-		`<article class='boxes'>
-			<ul class='boxes'>
-				<li class='box unclicked' data-id='8'></li>
-				<li class='box unclicked' data-id='4'></li>
-				<li class='box unclicked' data-id='2'></li>
-				<li class='box unclicked' data-id='1'></li>
-			</ul>
-		</article>`
-	);
+function generateLandingPage(){
+	generateBoxes();
 
 	$('article').append(`<p class='result'><span class='output'>0x0</span></p>`); 
 
@@ -31,16 +22,30 @@ function landingPage(){
 	); 	
 };
 
-function addClickFunctionality(){
+function generateBoxes(){
+	$('main').append(
+		`<article class='boxes'>
+			<ul class='boxes'>
+				<li class='box unclicked' data-id='8'></li>
+				<li class='box unclicked' data-id='4'></li>
+				<li class='box unclicked' data-id='2'></li>
+				<li class='box unclicked' data-id='1'></li>
+			</ul>
+		</article>`
+	);
+}
+
+const clickFunctionalityBoxes = function(){
 	const VALUES = [0];
 	unclickedBoxes(VALUES);
 	clickedBoxes(VALUES);
 }
 
-function startQuiz(){
+const startQuiz = function(){
 	$('#start-quiz input[type=submit], #start-quiz button').on('click', function(event) { 
 		event.preventDefault();
-		generateQuizPage();
+		//randGen for answer param
+		generateQuizPage(randGen());
 	});
 }
 
@@ -91,54 +96,60 @@ function startQuiz(){
 //generateQuizPage
 
 
-
-
-
-
-
-
-const generateQuizPage = function(){
+const generateQuizPage = function(answer){
 	removeLanding();
-	nextQuestion(makeArray());
+	generateBoxes();
+	makeDisplayBoxes(makeArray(answer));
+	createOptionBoxes(answer);
+	renderAnswers(answer);
+	selectOption(answer);
 }
 
-const removeLanding = function(){
-	$("li").each(function(){
-		$(this).removeClass('clicked');
-		$(this).removeClass('unclicked');
+const selectOption = function(answer){
+	$('.options').each(function(event){
+		$(event.currentTarget).removeClass('correct');
+		$(event.currentTarget).removeClass('incorrect');
 	});
-	$('.intro-article').remove();
-	$('.output').remove();
+	$('.options').on('click',function(event){
+		let currentTarget = $(event.currentTarget);
+		let val = currentTarget.html();
+		if(val == answer){
+			currentTarget.addClass('correct');
+		} else {
+			currentTarget.addClass('incorrect');
+		}
+		window.setTimeout(function(){ generateQuizPage(randGen())}, 700);
+	});
+}
+
+
+
+// const selectOption = function(answer){
+// 	click().delay;
+// 	generateQuizPage(randGen());
+
+// 	function click(){
+// 		$('.options').on('click', function(){
+// 			var choice = $(this).html();
+// 		if(choice == answer){
+// 			$(this).addClass('correct');
+// 		} else {
+// 			$(this).addClass('incorrect');
+// 		}
+// 	}
+// }
+
+const removeLanding = function(){
+	$('main > *').remove();
 }
 
 //Turns binary string to array
-const makeArray = function(){
-	return dec2bin().split("");
-}
-
-const nextQuestion = function(numberArray){
-
-	$('.box').each(function(i){
-		if(numberArray[i] == "0"){
-			$(this).removeClass('clicked unclicked');
-			$(this).addClass('blank');
-		} else {
-			$(this).removeClass('clicked unclicked');
-			$(this).addClass('lightning');
-		}
-	});
-}
-
-
-//Generates random number 0-15
-var randGen = function(){
-	return Math.floor(Math.random() * 15);
+const makeArray = function(ans){
+	return dec2bin(ans).split("");
 }
 
 //returns "0100", "1000", etc.
-var dec2bin = function(){
-	let num = randGen();
-	appendUserBrief(num);
+var dec2bin = function(num){
 	if(num === 0){
 		return "0000";
 	} else if(num === 1){
@@ -176,118 +187,73 @@ var dec2bin = function(){
 	}
 }
 
-function appendUserBrief(answer){
+const makeDisplayBoxes = function(numberArray){
+	$('.box').each(function(i){
+		if(numberArray[i] == "0"){
+			$(this).removeClass('clicked unclicked');
+			$(this).addClass('blank');
+		} else {
+			$(this).removeClass('clicked unclicked');
+			$(this).addClass('lightning');
+		}
+	});
+}
+
+
+//Generates random number 0-15
+var randGen = function(){
+	return Math.floor(Math.random() * 15);
+}
+
+const createOptionBoxes = function(){
 	//$('main').prepend(`<article><p>${generatedNumber}</p></article>`);
 	$('main').append(
 		`<article class='multiple-choice'>
 			<ul class='example-boxes'>
-				<li class='options'></div></li>
-				<li class='options'></div></li>
-				<li class='options'></div></li>
-				<li class='options'></div></li>
+				<li class='options'></li>
+				<li class='options'></li>
+				<li class='options'></li>
+				<li class='options'></li>
 			</ul>
 		</article>
-			<form id="target" action="destination.html">
-			  <input type="submit" value="Answer">
-			</form>
-			`);	
-
-	optionBoxes(answer);
-	$('#start-quiz input[type=submit], #start-quiz button').on('click', function(event) { 
-		event.preventDefault();
-		generateQuizPage();
-	});
+	`);	
 }
 
-const optionBoxes = function(answer){
-	// debugger;
-	let answerBox = Math.floor(Math.random() * 4);
-	let array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-	$('.options').each(function(index){
-		if(index === answerBox){
-			$(this).append(answer);
-			removeArrayElement(answer, array);
-			//take away the correct answer from the possilibities of the remainder
-		} else {
-			var num = nextBoxes(array); 
-			$(this).append(num);	
-			removeArrayElement(num, array);		
-		};
-	});
-	function removeArrayElement(input, arr){
-		var index = array.indexOf(input);
-		arr.splice(index, 1);
-	}
-	function nextBoxes(arr){
-		var arraylength = arr.length; 
-		var num = Math.floor(Math.random() * (arraylength - 1));
-		var nextIndex = arr.indexOf(num);
-		return arr[nextIndex];
-	}
+function renderAnswers(answers) {
+	let array = generateAnswers(answers);
+ 	array.forEach((element, index) => {
+    	$('.options')[index].append(element);
+  	});			
 }
 
-	const highlightAnswer = function(options){
-		$(options).on('click', function(){
-			if($(this).html() == answer){
-				$(this).animateHighlight("#cce98e", 1000);
-			} else {
-				$(this).animateHighlight("red", 1000);
+// article.multiple-choice > ul > li > label
+
+function generateAnswers(answer) {
+	let array = [];
+	for(let i = 0; i < 4; i++){
+		let flag = true; 
+		let number = generateNumber(answer, array);
+		for(let j = 0; j < array.length; j++){
+			if(array[j] === number){
+				flag = false;
 			}
-		});
+		}
+		if(flag == true){
+			array.push(number);
+		} else {
+			i--;
+		}
 	}
+	let answerIndex = Math.floor(Math.random() * 4);
+	array.splice(answerIndex, 1, answer);
+  	return array;
+}
 
-
-
-// var notLocked = true;
-// $.fn.animateHighlight = function(highlightColor, duration) {
-//     var highlightBg = highlightColor || "#FFFF9C";
-//     var animateMs = duration || 1500;
-//     var originalBg = this.css("backgroundColor");
-//     if (notLocked) {
-//         notLocked = false;
-//         this.stop().css("background-color", highlightBg)
-//             .animate({backgroundColor: originalBg}, animateMs);
-//         setTimeout( function() { notLocked = true; }, animateMs);
-//     }
-// };
-
-	// const optionsBoxes = function(answer){
-	// 	const answerBox = Math.floor(Math.random() * 4);
-	// 	const array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-	// 	$('.options').each(function(index){
-	// 		if(index === answerBox){
-	// 			$(this).append(answer);
-	// 		} else {
-	// 			var index = array.indexOf(answer);
-	// 			array.splice(index, 1);
-	// 			//take away the correct answer from the possilibities of the remainder
-	// 			var num = Math.floor(Math.random() * 14);
-	// 			$(this).append(num);			
-	// 		};
-	// 	});
-	// }
-
-// const repeat = function(generateNumber){
-// 	let num = randGen();
-// 	while(num === generateNumber){
-// 		repeat(generateNumber);
-// 	}
-// 	return num;
-// }
-
-
-// var counter = 0;
-
-// $( "#target" ).submit(function( event ) {
-//   alert( "Handler for .submit() called." );
-//   event.preventDefault();
-//   counter++;
-//   if($(this) === correctNumberPlacement
-//   //check if box cliked is same as right answer is on
-//   //if so, add one to rightAnswers
-//   //generate new question
-//   //counter++ while counter <=5  
-// });
-
-
-// var rightAnswers = [];
+function generateNumber(answer, array){
+	let number = randGen();
+	if(number !== answer && !array.find(function(element){ return element === answer})) {
+		return number;
+	} else {
+		return generateNumber(answer, array);
+	}
+}

@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+
+.lightning {
+  content: url('../lightning-icon.png');
+  padding-top: 0;
+  margin-top: 2px;
+  height: 20%;
+  animation: shrinkFit 0.35s ease-in, wobble .11s 2; 
+  animation-delay: 0s, .425s;
+/*  wobble */
+/*  -webkit-animation: wobble .2s 3;
+  animation: wobble .2s 3; */
+}
+
+@keyframes shrinkFit {
+  from {
+    transform: scale(3);
+
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes wobble  {
+  0%  { transform:  rotate(0deg); }
+  20%  { transform:  rotate(2.5deg); }
+  50%  { transform:  rotate(-2.5deg); }
+  100%  { transform:  rotate(0deg); }
+}
+
+@-webkit-keyframes wobble  {
+  0%  { -webkit-transform:  rotate(0deg); }
+  20%  { -webkit-transform:  rotate(2.5deg); }
+  50%  { -webkit-transform:  rotate(-2.5deg); }
+  100%  { -webkit-transform:  rotate(0deg); }
+}

@@ -1,94 +1,3 @@
-$(function(){
-	landingPage();
-	addClickFunctionality();
-	startQuiz();
-});	
-
-//Landing Page Generation
-function landingPage(){
-	$('main').append(
-		`<article class='boxes'>
-			<ul class='boxes'>
-				<li class='box unclicked' data-id='8'></li>
-				<li class='box unclicked' data-id='4'></li>
-				<li class='box unclicked' data-id='2'></li>
-				<li class='box unclicked' data-id='1'></li>
-			</ul>
-		</article>`
-	);
-
-	$('article').append(`<p class='result'><span class='output'>0x0</span></p>`); 
-
-	$('article').append(
-		`<article class='intro-article'>
-			<p class='intro'>This is a binary calculator</p>
-			<p class='intro'>Output is in hexadecimal notation</p>
-			<p class='intro'>Start the quiz when you are ready</p>
-			<form id='start-quiz'>
-				<button type=submit'>Start quiz</button>
-			</form>
-		 </article>`
-	); 	
-};
-
-const addClickFunctionality = function(){
-	const VALUES = [0];
-	unclickedBoxes(VALUES);
-	clickedBoxes(VALUES);
-}
-
-const startQuiz = function(){
-	$('#start-quiz input[type=submit], #start-quiz button').on('click', function(event) { 
-		event.preventDefault();
-		generateQuizPage();
-	});
-}
-
-//addClickFunctionality support functions:
-	const unclickedBoxes = function(VALUES){
-		$('ul').on('click', '.unclicked', function(){
-			const num = $(this).data('id');
-			VALUES.push(num);
-			$(this).removeClass('unclicked');
-			$(this).addClass('clicked');
-			remove();
-			appendTotal(VALUES);
-		});
-	}
-
-	const clickedBoxes = function(VALUES){
-		$('ul').on('click', '.clicked', function(){
-			const num = $(this).data('id');
-			const indexToRemove = VALUES.indexOf(num);
-			VALUES.splice(indexToRemove, 1);
-			$(this).removeClass('clicked');
-			$(this).addClass('unclicked');
-			$(this).empty('clicked');
-			remove();
-			appendTotal(VALUES);
-		});
-	}
-
-	const remove = function(){
-		$('main').find('.output').remove();
-	}
-
-	const appendTotal = function(VALUES){
-		$('.result').append(`<span class='output'>${getTotal(VALUES)}</span>`);
-	}
-
-	const getTotal = function(VALUES){
-		const val = VALUES.reduce(reducer);
-		const hex = val.toString(16);
-		return `0x${hex}`;
-	}
-
-	const reducer = function(total, number){
-		return total + number;
-	}
-
-
-
 //generateQuizPage
 const generateQuizPage = function(){
 	removeLanding();
@@ -219,18 +128,18 @@ const highlightAnswer = function(){
 	});
 }
 
-// var notLocked = true;
-// $.fn.animateHighlight = function(highlightColor, duration) {
-//     var highlightBg = highlightColor || "#FFFF9C";
-//     var animateMs = duration || 1500;
-//     var originalBg = this.css("backgroundColor");
-//     if (notLocked) {
-//         notLocked = false;
-//         this.stop().css("background-color", highlightBg)
-//             .animate({backgroundColor: originalBg}, animateMs);
-//         setTimeout( function() { notLocked = true; }, animateMs);
-//     }
-// };
+var notLocked = true;
+$.fn.animateHighlight = function(highlightColor, duration) {
+    var highlightBg = highlightColor || "#FFFF9C";
+    var animateMs = duration || 1500;
+    var originalBg = this.css("backgroundColor");
+    if (notLocked) {
+        notLocked = false;
+        this.stop().css("background-color", highlightBg)
+            .animate({backgroundColor: originalBg}, animateMs);
+        setTimeout( function() { notLocked = true; }, animateMs);
+    }
+};
 
 
 
@@ -300,9 +209,3 @@ const highlightAnswer = function(){
 
 
 // var rightAnswers = [];
-
-
-
-
-
-
