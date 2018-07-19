@@ -1,5 +1,4 @@
 //Add progress meter
-
 //As a user, should know current question/progress
 //As a user, I should know how many are correct or wrong
 //add new test branch
@@ -121,8 +120,10 @@ App.quizPage.selectOption = function(answer){
 		let val = currentTarget.html();
 		if(val == answer){
 			currentTarget.addClass('correct');
+			// $('.status-bar')[counter].addClass('correct');
 		} else {
 			currentTarget.addClass('incorrect');
+			// $('.status-bar')[counter].addClass('inCorrect');
 		}
 		window.setTimeout(function(){ App.quizPage.generateQuizPage(App.randGen())}, 700);
 	});

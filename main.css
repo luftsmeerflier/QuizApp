@@ -100,7 +100,7 @@ li {
   color: white; 
   width: 20%;
   padding-top: calc(20% - 2em);
-  border: 0.6em solid yellow;
+  border: 0.6em solid #95daa8;
 }
 
 .clicked {
