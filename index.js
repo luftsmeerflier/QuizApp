@@ -1,4 +1,5 @@
 //Add progress meter
+
 //As a user, should know current question/progress
 //As a user, I should know how many are correct or wrong
 //add new test branch
@@ -102,12 +103,24 @@ App.quizPage.generateQuizPage = function(answer){
 	// while(App.counter < 10){
 		let intArray = App.quizPage.makeArray(answer);
 		App.quizPage.removeLanding(answer, intArray);
+		App.quizPage.statusBar();
 		App.landingPage.generateBoxes();
 		App.quizPage.createOptionBoxes(answer, intArray);
 		App.quizPage.renderAnswers(answer);
 		App.quizPage.selectOption(answer);
 		App.counter++;
 	// }
+}
+
+
+App.quizPage.statusBar = function(){
+	$('main').append(`
+    <div class="status-bar">
+      <ul>
+      <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+      </ul>
+    </div> 
+	`);
 }
 
 App.quizPage.selectOption = function(answer){
@@ -120,10 +133,8 @@ App.quizPage.selectOption = function(answer){
 		let val = currentTarget.html();
 		if(val == answer){
 			currentTarget.addClass('correct');
-			// $('.status-bar')[counter].addClass('correct');
 		} else {
 			currentTarget.addClass('incorrect');
-			// $('.status-bar')[counter].addClass('inCorrect');
 		}
 		window.setTimeout(function(){ App.quizPage.generateQuizPage(App.randGen())}, 700);
 	});

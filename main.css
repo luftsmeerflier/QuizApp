@@ -1,16 +1,15 @@
 * {
   box-sizing: border-box;
 }
-
-body, html{
-  height: 100%;
+/*body, html{
   height: 100vh;
-}
+  height: 100vh;
+}*/
 
 html{
   background-image: url("./silicon-chip.jpg");
   background-size: cover;
-  background-repeat: round;
+  background-repeat: no-repeat;
   background-position: center;
 }
 
@@ -30,6 +29,7 @@ main, article, header {
 header {
   height: 15%;
 }
+
 
 main {
 /*    background-color: #5dc075;
