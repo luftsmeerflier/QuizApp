@@ -1,15 +1,23 @@
-$(function(){
-	generateLandingPage();
-	clickFunctionalityBoxes();
-	startQuiz();
-});	
+//Add progress meter
+
+//As a user, should know current question/progress
+//As a user, I should know how many are correct or wrong
+//add new test branch
+//Requirements as feature requests
+const App = {
+	counter : 0,
+	landingPage : {
+
+	},
+	quizPage : {
+
+	}
+};
 
 //Landing Page Generation
-function generateLandingPage(){
-	generateBoxes();
-
+App.landingPage.generateLandingPage = function(){
+	App.landingPage.generateBoxes();
 	$('article').append(`<p class='result'><span class='output'>0x0</span></p>`); 
-
 	$('article').append(
 		`<article class='intro-article'>
 			<p class='intro'>This is a binary calculator</p>
@@ -20,9 +28,11 @@ function generateLandingPage(){
 			</form>
 		 </article>`
 	); 	
+	App.landingPage.clickFunctionalityBoxes();
+	App.landingPage.startQuiz();
 };
 
-function generateBoxes(){
+App.landingPage.generateBoxes = function(){
 	$('main').append(
 		`<article class='boxes'>
 			<ul class='boxes'>
@@ -35,77 +45,73 @@ function generateBoxes(){
 	);
 }
 
-const clickFunctionalityBoxes = function(){
+App.landingPage.clickFunctionalityBoxes = function(){
 	const VALUES = [0];
-	unclickedBoxes(VALUES);
-	clickedBoxes(VALUES);
+	App.landingPage.unclickedBoxes(VALUES);
+	App.landingPage.clickedBoxes(VALUES);
 }
 
-const startQuiz = function(){
-	$('#start-quiz input[type=submit], #start-quiz button').on('click', function(event) { 
-		event.preventDefault();
-		//randGen for answer param
-		generateQuizPage(randGen());
+//addClickFunctionality support functions:
+App.landingPage.unclickedBoxes = function(VALUES){
+	$('ul').on('click', '.unclicked', function(){
+		const num = $(this).data('id');
+		VALUES.push(num);
+		$(this).removeClass('unclicked');
+		$(this).addClass('clicked');
+		$('main').find('.output').remove();
+		$('.result').append(`<span class='output'>${App.landingPage.getTotal(VALUES)}</span>`);
 	});
 }
 
-
-//addClickFunctionality support functions:
-	function unclickedBoxes(VALUES){
-		$('ul').on('click', '.unclicked', function(){
-			const num = $(this).data('id');
-			VALUES.push(num);
-			$(this).removeClass('unclicked');
-			$(this).addClass('clicked');
-			remove();
-			appendTotal(VALUES);
-		});
-	}
-
-	function clickedBoxes(VALUES){
-		$('ul').on('click', '.clicked', function(){
-			const num = $(this).data('id');
-			const indexToRemove = VALUES.indexOf(num);
-			VALUES.splice(indexToRemove, 1);
-			$(this).removeClass('clicked');
-			$(this).addClass('unclicked');
-			$(this).empty('clicked');
-			remove();
-			appendTotal(VALUES);
-		});
-	}
-
-	function remove(){
+App.landingPage.clickedBoxes = function(VALUES){
+	$('ul').on('click', '.clicked', function(){
+		const num = $(this).data('id');
+		const indexToRemove = VALUES.indexOf(num);
+		VALUES.splice(indexToRemove, 1);
+		$(this).removeClass('clicked');
+		$(this).addClass('unclicked');
+		$(this).empty('clicked');
 		$('main').find('.output').remove();
-	}
+		$('.result').append(`<span class='output'>${App.landingPage.getTotal(VALUES)}</span>`);
+	});
+}
 
-	function appendTotal(VALUES){
-		$('.result').append(`<span class='output'>${getTotal(VALUES)}</span>`);
-	}
+App.landingPage.startQuiz = function(){
+	$('#start-quiz input[type=submit], #start-quiz button').on('click', function(event) { 
+		event.preventDefault();
+		//randGen for answer param
+		let answer = App.randGen();
+		App.quizPage.generateQuizPage(answer);
+	});
+}
 
-	function getTotal(VALUES){
-		const val = VALUES.reduce(reducer);
-		const hex = val.toString(16);
-		return `0x${hex}`;
-	}
-
+App.landingPage.getTotal = function(VALUES){
+	const val = VALUES.reduce(reducer);
+	const hex = val.toString(16);
+	return `0x${hex}`;
 	function reducer(total, number){
 		return total + number;
 	}
+}
+
+
 
 //generateQuizPage
 
 
-const generateQuizPage = function(answer){
-	removeLanding();
-	generateBoxes();
-	makeDisplayBoxes(makeArray(answer));
-	createOptionBoxes(answer);
-	renderAnswers(answer);
-	selectOption(answer);
+App.quizPage.generateQuizPage = function(answer){
+	// while(App.counter < 10){
+		let intArray = App.quizPage.makeArray(answer);
+		App.quizPage.removeLanding(answer, intArray);
+		App.landingPage.generateBoxes();
+		App.quizPage.createOptionBoxes(answer, intArray);
+		App.quizPage.renderAnswers(answer);
+		App.quizPage.selectOption(answer);
+		App.counter++;
+	// }
 }
 
-const selectOption = function(answer){
+App.quizPage.selectOption = function(answer){
 	$('.options').each(function(event){
 		$(event.currentTarget).removeClass('correct');
 		$(event.currentTarget).removeClass('incorrect');
@@ -118,38 +124,36 @@ const selectOption = function(answer){
 		} else {
 			currentTarget.addClass('incorrect');
 		}
-		window.setTimeout(function(){ generateQuizPage(randGen())}, 700);
+		window.setTimeout(function(){ App.quizPage.generateQuizPage(App.randGen())}, 700);
 	});
 }
 
-
-
-// const selectOption = function(answer){
-// 	click().delay;
-// 	generateQuizPage(randGen());
-
-// 	function click(){
-// 		$('.options').on('click', function(){
-// 			var choice = $(this).html();
-// 		if(choice == answer){
-// 			$(this).addClass('correct');
-// 		} else {
-// 			$(this).addClass('incorrect');
-// 		}
-// 	}
-// }
-
-const removeLanding = function(){
+App.quizPage.removeLanding = function(){
 	$('main > *').remove();
 }
 
+
+App.quizPage.renderAnswers = function(answers) {
+	let array = App.quizPage.generateAnswers(answers);
+ 	array.forEach((element, index) => {
+    	$('.options')[index].append(element);
+  	});			
+}
+
+
+
+
+
+
+
+
 //Turns binary string to array
-const makeArray = function(ans){
-	return dec2bin(ans).split("");
+App.quizPage.makeArray = function(ans){
+	return App.quizPage.dec2bin(ans).split("");
 }
 
 //returns "0100", "1000", etc.
-var dec2bin = function(num){
+App.quizPage.dec2bin = function(num){
 	if(num === 0){
 		return "0000";
 	} else if(num === 1){
@@ -187,7 +191,7 @@ var dec2bin = function(num){
 	}
 }
 
-const makeDisplayBoxes = function(numberArray){
+const makeDisplayBoxes = function(numberArray, answer){
 	$('.box').each(function(i){
 		if(numberArray[i] == "0"){
 			$(this).removeClass('clicked unclicked');
@@ -201,11 +205,11 @@ const makeDisplayBoxes = function(numberArray){
 
 
 //Generates random number 0-15
-var randGen = function(){
+App.randGen = function(){
 	return Math.floor(Math.random() * 15);
 }
 
-const createOptionBoxes = function(){
+App.quizPage.createOptionBoxes = function(answer, numberArray){
 	//$('main').prepend(`<article><p>${generatedNumber}</p></article>`);
 	$('main').append(
 		`<article class='multiple-choice'>
@@ -217,10 +221,19 @@ const createOptionBoxes = function(){
 			</ul>
 		</article>
 	`);	
+	$('.box').each(function(index){
+		if(numberArray[index] == "0"){
+			$(this).removeClass('clicked unclicked');
+			$(this).addClass('blank');
+		} else {
+			$(this).removeClass('clicked unclicked');
+			$(this).addClass('lightning');
+		}
+	});
 }
 
-function renderAnswers(answers) {
-	let array = generateAnswers(answers);
+App.quizPage.renderAnswers = function(answers) {
+	let array = App.quizPage.generateAnswers(answers);
  	array.forEach((element, index) => {
     	$('.options')[index].append(element);
   	});			
@@ -228,11 +241,11 @@ function renderAnswers(answers) {
 
 // article.multiple-choice > ul > li > label
 
-function generateAnswers(answer) {
+App.quizPage.generateAnswers = function(answer) {
 	let array = [];
 	for(let i = 0; i < 4; i++){
 		let flag = true; 
-		let number = generateNumber(answer, array);
+		let number = App.quizPage.generateNumber(answer, array);
 		for(let j = 0; j < array.length; j++){
 			if(array[j] === number){
 				flag = false;
@@ -249,11 +262,15 @@ function generateAnswers(answer) {
   	return array;
 }
 
-function generateNumber(answer, array){
-	let number = randGen();
+App.quizPage.generateNumber = function(answer, array){
+	let number = App.randGen();
 	if(number !== answer && !array.find(function(element){ return element === answer})) {
 		return number;
 	} else {
-		return generateNumber(answer, array);
+		return App.quizPage.generateNumber(answer, array);
 	}
 }
+
+$(function(){
+	App.landingPage.generateLandingPage();
+});	

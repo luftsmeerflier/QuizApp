@@ -73,14 +73,14 @@ li.options {
 }
 
 .incorrect:hover {
-	background-color: #5dc075;
-/*	background-color: rgba(217, 148, 165, 0.85);
-*/}
-
-.correct:hover{
-	background-color: rgba(93, 192, 117, 0.85);
+/*	background-color: #5dc075;
+*/	background-color: rgba(217, 148, 165, 0.85);
 }
 
+.correct:hover{
+/*	background-color: rgba(93, 192, 117, 0.85);*/
+  background-color: #77c05d;
+}
 
 @-webkit-keyframes flash {
 	0% { opacity: 1; } 

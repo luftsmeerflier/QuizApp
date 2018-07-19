@@ -94,9 +94,6 @@ li {
   margin-top: 1em;
 }
 
-* {
-  box-sizing: border-box;
-}
 /*JS functionality*/
 .box {
   background-color: white;
