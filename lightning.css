@@ -3,7 +3,7 @@
 }
 
 .lightning {
-  content: url('../lightning-icon.png');
+  content: url('./lightning-icon.png');
   padding-top: 0;
   margin-top: 2px;
   height: 20%;
