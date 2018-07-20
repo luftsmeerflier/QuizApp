@@ -1,5 +1,5 @@
 .quizPage{
-  justify-content: space-evenly/*| flex-end | center | space-between | space-around | space-evenly;*/;
+  justify-content: center/*flex-end | flex-end | center | space-between | space-around | space-evenly;*/
 }
 /*****************Status bar****************/
 .status-bar {
@@ -55,7 +55,7 @@
 
 .correct {
   background-color: #77c05d;
-}
+  }
 
 .incorrect {
   background-color: rgba(217, 148, 165, 0.85)

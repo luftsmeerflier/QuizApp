@@ -5,9 +5,7 @@
 //add new test branch
 //Requirements as feature requests
 const App = {
-	numQuestions: 10,
 	counter : 0,
-	answers : [],
 	landingPage : {
 
 	},
@@ -19,7 +17,6 @@ const App = {
 //Landing Page Generation
 App.landingPage.generateLandingPage = function(){
 	App.landingPage.generateBoxes();
-	$('main').addClass('landing');
 	$('article').append(`<p class='result'><span class='output'>0x0</span></p>`); 
 	$('article').append(
 		`<article class='intro-article'>
@@ -115,17 +112,6 @@ App.quizPage.generateQuizPage = function(answer){
 	// }
 }
 
-App.renderWindow = function(){
-window.setTimeout(function(){ 
-	if(App.answers.length < App.numQuestions){
-		App.quizPage.generateQuizPage(App.randGen());
-	} else {
-		App.quizPage.updateStatusBar();
-		Alert("Hi")
-	}}, 700);
-}
-
-
 App.quizPage.statusBar = function(){
 	$('main').append(`
     <div class="status-bar">
@@ -143,15 +129,16 @@ App.quizPage.statusBar = function(){
       </ul>
     </div> 
 	`);
-	App.quizPage.updateStatusBar();
-}
-
-App.quizPage.updateStatusBar = function(){
 	$('.status-bar li').each(function(index, element){
+		// let litmus = App.answers[index].replace("'","");
 		let litmus = App.answers[index];
 		$(element).addClass(litmus);
 	});
+	// for(bool of App.answers){
+		
+	// }
 }
+
 
 App.quizPage.selectOption = function(answer){
 	$('.options').each(function(event){
@@ -163,18 +150,14 @@ App.quizPage.selectOption = function(answer){
 		let val = currentTarget.html();
 		if(val == answer){
 			currentTarget.addClass('animate-correct');
-			App.answers.push('correct');
 		} else {
 			currentTarget.addClass('animate-incorrect');
-			App.answers.push('incorrect');
 		}
-		App.renderWindow();
+		window.setTimeout(function(){ App.quizPage.generateQuizPage(App.randGen())}, 700);
 	});
 }
 
 App.quizPage.removeLanding = function(){
-	$('main').removeClass('landing');
-	$('main').addClass('quizPage');
 	$('main > *').remove();
 }
 

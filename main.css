@@ -39,8 +39,9 @@ main {
   display: flex;
   flex-direction: column;
   width: 80%;
-  justify-content: space-around;
+  justify-content: center;
 }
+
 
 article {
   background-color: rgba(149, 218, 168, 0.85);
@@ -100,7 +101,8 @@ li {
   color: white; 
   width: 20%;
   padding-top: calc(20% - 2em);
-  border: 0.6em solid #95daa8;
+/*  border: 0.6em solid #95daa8;*/  
+  border: 0.5em solid rgba(238, 248, 238, 0.85);
 }
 
 .clicked {

@@ -5,21 +5,46 @@
 //add new test branch
 //Requirements as feature requests
 const App = {
-	numQuestions: 10,
 	counter : 0,
-	answers : [],
-	landingPage : {
-
-	},
-	quizPage : {
-
-	}
+	//Top level counter 
+	landingPage : {},
+	//functions relevant to the landingPage
+	quizPage : {},
+	//functions relevant to the quizPage
 };
+
+// Calls generateAnswers
+// 		answer : randGen(),
+// 		intArray : App.quizPage.makeArray(answer);
+// 		cleanUp : App.quizPage.removeLanding(answer, intArray);
+// 		statusBar : App.quizPage.statusBar();
+// 		displayBoxes : App.landingPage.generateBoxes();
+// 		multipleChoiceBoxes : App.quizPage.createOptionBoxes(answer, intArray);
+// 		fillMultipleChoiceBoxes: App.quizPage.renderAnswers(answer);
+// 		clickOption : App.quizPage.selectOption(answer);
+
+// const App = [
+// 	{ 
+// 		answer : randGen(), 
+// 		options : renderAnswers(answer),
+
+// 	}, 
+// 	{}, 
+// 	{}, 
+// 	{}, 
+// 	{}, 
+// 	{}, 
+// 	{}, 
+// 	{}, 
+// 	{}
+// ];
+
+
+
 
 //Landing Page Generation
 App.landingPage.generateLandingPage = function(){
 	App.landingPage.generateBoxes();
-	$('main').addClass('landing');
 	$('article').append(`<p class='result'><span class='output'>0x0</span></p>`); 
 	$('article').append(
 		`<article class='intro-article'>
@@ -83,6 +108,7 @@ App.landingPage.startQuiz = function(){
 	$('#start-quiz input[type=submit], #start-quiz button').on('click', function(event) { 
 		event.preventDefault();
 		//randGen for answer param
+		$('main').addClass('quizPage');
 		let answer = App.randGen();
 		App.quizPage.generateQuizPage(answer);
 	});
@@ -98,12 +124,9 @@ App.landingPage.getTotal = function(VALUES){
 }
 
 
-
 //generateQuizPage
 
-
 App.quizPage.generateQuizPage = function(answer){
-	// while(App.counter < 10){
 		let intArray = App.quizPage.makeArray(answer);
 		App.quizPage.removeLanding(answer, intArray);
 		App.quizPage.statusBar();
@@ -111,18 +134,6 @@ App.quizPage.generateQuizPage = function(answer){
 		App.quizPage.createOptionBoxes(answer, intArray);
 		App.quizPage.renderAnswers(answer);
 		App.quizPage.selectOption(answer);
-		App.counter++;
-	// }
-}
-
-App.renderWindow = function(){
-window.setTimeout(function(){ 
-	if(App.answers.length < App.numQuestions){
-		App.quizPage.generateQuizPage(App.randGen());
-	} else {
-		App.quizPage.updateStatusBar();
-		Alert("Hi")
-	}}, 700);
 }
 
 
@@ -143,14 +154,14 @@ App.quizPage.statusBar = function(){
       </ul>
     </div> 
 	`);
-	App.quizPage.updateStatusBar();
-}
-
-App.quizPage.updateStatusBar = function(){
 	$('.status-bar li').each(function(index, element){
+		// let litmus = App.answers[index].replace("'","");
 		let litmus = App.answers[index];
 		$(element).addClass(litmus);
 	});
+	// for(bool of App.answers){
+		
+	// }
 }
 
 App.quizPage.selectOption = function(answer){
@@ -159,6 +170,7 @@ App.quizPage.selectOption = function(answer){
 		$(event.currentTarget).removeClass('incorrect');
 	});
 	$('.options').on('click',function(event){
+		let counter = App.counter;
 		let currentTarget = $(event.currentTarget);
 		let val = currentTarget.html();
 		if(val == answer){
@@ -168,13 +180,11 @@ App.quizPage.selectOption = function(answer){
 			currentTarget.addClass('animate-incorrect');
 			App.answers.push('incorrect');
 		}
-		App.renderWindow();
+		window.setTimeout(function(){ App.quizPage.generateQuizPage(App.randGen())}, 700);
 	});
 }
 
 App.quizPage.removeLanding = function(){
-	$('main').removeClass('landing');
-	$('main').addClass('quizPage');
 	$('main > *').remove();
 }
 
@@ -185,11 +195,6 @@ App.quizPage.renderAnswers = function(answers) {
     	$('.options')[index].append(element);
   	});			
 }
-
-
-
-
-
 
 
 
@@ -286,7 +291,6 @@ App.quizPage.renderAnswers = function(answers) {
 }
 
 // article.multiple-choice > ul > li > label
-
 App.quizPage.generateAnswers = function(answer) {
 	let array = [];
 	for(let i = 0; i < 4; i++){
