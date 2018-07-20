@@ -1,10 +1,11 @@
-
+.quizPage{
+  justify-content: space-evenly/*| flex-end | center | space-between | space-around | space-evenly;*/;
+}
 /*****************Status bar****************/
 .status-bar {
   box-sizing: border-box;
   width: 90%;
   height: 40px;
-  margin: 1.5em;
   background-color: rgba(255, 255, 255, .85);
   /*flex-box*/
   align-self: center; 
@@ -50,6 +51,14 @@
   width: 9.6%;
   height: 100%;
   border-radius: 0 6.5px 6.5px 0;
+}
+
+.correct {
+  background-color: #77c05d;
+}
+
+.incorrect {
+  background-color: rgba(217, 148, 165, 0.85)
 }
 
 /*****************End of Status bar****************/
@@ -122,17 +131,17 @@ li.options {
 
 }
 
-.correct, .incorrect {
+.animate-correct, .animate-incorrect {
 	-webkit-animation: flash linear .1s 3;
 	animation: flash linear .1s 3;
 }
 
-.incorrect:hover {
+.animate-incorrect:hover {
 /*	background-color: #5dc075;
 */	background-color: rgba(217, 148, 165, 0.85);
 }
 
-.correct:hover{
+.animate-correct:hover{
 /*	background-color: rgba(93, 192, 117, 0.85);*/
   background-color: #77c05d;
 }

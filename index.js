@@ -6,12 +6,12 @@
 //Requirements as feature requests
 const App = {
 	counter : 0,
-	landingPage : {
-
-	},
-	quizPage : {
-
-	}
+	//Top level counter 
+	landingPage : {},
+	//functions relevant to the landingPage
+	quizPage : {},
+	//functions relevant to the quizPage
+	answers : []
 };
 
 //Landing Page Generation
@@ -80,6 +80,7 @@ App.landingPage.startQuiz = function(){
 	$('#start-quiz input[type=submit], #start-quiz button').on('click', function(event) { 
 		event.preventDefault();
 		//randGen for answer param
+		$('main').addClass('quizPage');
 		let answer = App.randGen();
 		App.quizPage.generateQuizPage(answer);
 	});
@@ -100,7 +101,7 @@ App.landingPage.getTotal = function(VALUES){
 
 
 App.quizPage.generateQuizPage = function(answer){
-	// while(App.counter < 10){
+	while(App.counter < 10){
 		let intArray = App.quizPage.makeArray(answer);
 		App.quizPage.removeLanding(answer, intArray);
 		App.quizPage.statusBar();
@@ -108,8 +109,8 @@ App.quizPage.generateQuizPage = function(answer){
 		App.quizPage.createOptionBoxes(answer, intArray);
 		App.quizPage.renderAnswers(answer);
 		App.quizPage.selectOption(answer);
-		App.counter++;
-	// }
+	} 
+	console.log("over");
 }
 
 
@@ -117,10 +118,27 @@ App.quizPage.statusBar = function(){
 	$('main').append(`
     <div class="status-bar">
       <ul>
-      <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+	      <li data-id='1'></li>
+	      <li data-id='2'></li>
+	      <li data-id='3'></li>
+	      <li data-id='4'></li>
+	      <li data-id='5'></li>
+	      <li data-id='6'></li>
+	      <li data-id='7'></li>
+	      <li data-id='8'></li>
+	      <li data-id='9'></li>
+	      <li data-id='10'></li>
       </ul>
     </div> 
 	`);
+	$('.status-bar li').each(function(index, element){
+		// let litmus = App.answers[index].replace("'","");
+		let litmus = App.answers[index];
+		$(element).addClass(litmus);
+	});
+	// for(bool of App.answers){
+		
+	// }
 }
 
 App.quizPage.selectOption = function(answer){
@@ -129,12 +147,15 @@ App.quizPage.selectOption = function(answer){
 		$(event.currentTarget).removeClass('incorrect');
 	});
 	$('.options').on('click',function(event){
+		let counter = App.counter;
 		let currentTarget = $(event.currentTarget);
 		let val = currentTarget.html();
 		if(val == answer){
-			currentTarget.addClass('correct');
+			currentTarget.addClass('animate-correct');
+			App.answers.push('correct');
 		} else {
-			currentTarget.addClass('incorrect');
+			currentTarget.addClass('animate-incorrect');
+			App.answers.push('incorrect');
 		}
 		window.setTimeout(function(){ App.quizPage.generateQuizPage(App.randGen())}, 700);
 	});
@@ -151,11 +172,6 @@ App.quizPage.renderAnswers = function(answers) {
     	$('.options')[index].append(element);
   	});			
 }
-
-
-
-
-
 
 
 
