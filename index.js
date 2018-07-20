@@ -103,7 +103,6 @@ App.landingPage.getTotal = function(VALUES){
 
 
 App.quizPage.generateQuizPage = function(answer){
-	// while(App.counter < 10){
 		let intArray = App.quizPage.makeArray(answer);
 		App.quizPage.removeLanding(answer, intArray);
 		App.quizPage.statusBar();
@@ -112,7 +111,6 @@ App.quizPage.generateQuizPage = function(answer){
 		App.quizPage.renderAnswers(answer);
 		App.quizPage.selectOption(answer);
 		App.counter++;
-	// }
 }
 
 App.renderWindow = function(){
