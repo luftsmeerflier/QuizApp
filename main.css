@@ -76,13 +76,6 @@ article.multiple-choice {
 
 }
 
-ul.example-boxes {
-  margin: 0px;
-  display: flex
-  flex-wrap: wrap;
-}
-
-
 li {
   list-style: none;
   background-color: white;
@@ -231,7 +224,7 @@ p {
   display: inline-block;
 }
 
-.example-boxes {
+.intro-article {
   display: flex;
   flex-direction: row;
   align-self: center;

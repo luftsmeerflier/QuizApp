@@ -22,7 +22,7 @@ App.landingPage.generateLandingPage = function(){
 	$('main').addClass('landing');
 	$('article').append(`<p class='result'><span class='output'>0x0</span></p>`); 
 	$('article').append(
-		`<article class='intro-article'>
+		`<article class='intro-article' role='article'>
 			<p class='intro'>This is a binary calculator</p>
 			<p class='intro'>Output is in hexadecimal notation</p>
 			<p class='intro'>Start the quiz when you are ready</p>
@@ -37,7 +37,7 @@ App.landingPage.generateLandingPage = function(){
 
 App.landingPage.generateBoxes = function(){
 	$('main').append(
-		`<article class='boxes'>
+		`<article class='boxes' role='article'>
 			<ul class='boxes'>
 				<li class='box unclicked' data-id='8'></li>
 				<li class='box unclicked' data-id='4'></li>
@@ -152,11 +152,11 @@ App.quizPage.updateStatusBar = function(){
 }
 
 App.quizPage.selectOption = function(answer){
-	$('.options').each(function(event){
+	$("tablist > li").each(function(event){
 		$(event.currentTarget).removeClass('correct');
 		$(event.currentTarget).removeClass('incorrect');
 	});
-	$('.options').on('click',function(event){
+	$("tablist > li").on('click',function(event){
 		let currentTarget = $(event.currentTarget);
 		let val = currentTarget.html();
 		if(val == answer){
@@ -180,7 +180,7 @@ App.quizPage.removeLanding = function(){
 App.quizPage.renderAnswers = function(answers) {
 	let array = App.quizPage.generateAnswers(answers);
  	array.forEach((element, index) => {
-    	$('.options')[index].append(element);
+    	$("tablist > li")[index].append(element);
   	});			
 }
 
@@ -253,15 +253,15 @@ App.randGen = function(){
 	return Math.floor(Math.random() * 15);
 }
 
+
 App.quizPage.createOptionBoxes = function(answer, numberArray){
-	//$('main').prepend(`<article><p>${generatedNumber}</p></article>`);
 	$('main').append(
 		`<article class='multiple-choice'>
-			<ul class='example-boxes'>
-				<li class='options'></li>
-				<li class='options'></li>
-				<li class='options'></li>
-				<li class='options'></li>
+			<ul class="tablist" role="tablist">
+				<li id="tab1" class="tab" role="tab"></li>
+				<li id="tab2" class="tab" role="tab"> </li>
+				<li id="tab3" class="tab" role="tab"> </li>
+				<li id="tab4" class="tab" role="tab"> </li>
 			</ul>
 		</article>
 	`);	
@@ -279,7 +279,7 @@ App.quizPage.createOptionBoxes = function(answer, numberArray){
 App.quizPage.renderAnswers = function(answers) {
 	let array = App.quizPage.generateAnswers(answers);
  	array.forEach((element, index) => {
-    	$('.options')[index].append(element);
+    	$(".tablist > li")[index].append(element);
   	});			
 }
 
