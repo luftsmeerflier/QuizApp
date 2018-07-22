@@ -1,0 +1,179 @@
+.quizPage{
+  justify-content: center/*flex-end | flex-end | center | space-between | space-around | space-evenly;*/
+}
+/*****************Status bar****************/
+.status-bar {
+  box-sizing: border-box;
+  width: 90%;
+  height: 40px;
+  background-color: rgba(255, 255, 255, .85);
+  /*flex-box*/
+  align-self: center; 
+  display: flex;
+  justify-content: center;
+  /*  polygon corners*/
+  clip-path: 
+    polygon(
+      0% 20px,                 /* top left */
+      20px 0%,                 /* top left */
+      calc(100% - 20px) 0%,    /* top right */
+      100% 20px,               /* top right */
+      100% calc(100% - 20px),  /* bottom right */
+      calc(100% - 20px) 100%,  /* bottom right */
+      20px 100%,               /* bottom left */
+      0 calc(100% - 20px)      /* bottom left */
+    );
+}
+
+.status-bar ul {
+  width: 100%;
+  align-self: center;
+  height: 84.5%;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-bar > ul > li {
+  width: 10%;
+  border: 1px solid #f1faf5;
+  height: 100%;
+  margin: 0;
+}
+
+.status-bar > ul > li:first-child {
+  position: all;
+  height: 100%;
+  border-radius: 6.5px 0 0 6.5px;
+}
+
+.status-bar > ul > li:last-child {
+  position: all;
+  width: 9.6%;
+  height: 100%;
+  border-radius: 0 6.5px 6.5px 0;
+}
+
+.correct {
+  background-color: #77c05d;
+  }
+
+.incorrect {
+  background-color: rgba(217, 148, 165, 0.85)
+}
+
+/*****************End of Status bar****************/
+
+
+
+/*li:active, li:focus
+*/
+.example-boxes { visibility: hidden; }
+/* Prevents :hover from triggering in the gaps between items */
+
+.example-boxes > * { visibility: visible; }
+/* Brings the child items back in, even though the parent is `hidden` */
+
+.example-boxes > * { transition: opacity 150ms linear 100ms, transform 150ms ease-in-out 100ms; }
+/* Makes the fades smooth with a slight delay to prevent jumps as the mouse moves between items */
+
+.example-boxes:hover > * { opacity: 0.4; transform: scale(0.9); }
+/* Fade out all items when the parent is hovered */
+
+.example-boxes > *:hover { opacity: 1; transform: scale(1); transition-delay: 0ms, 0ms; }
+/* Fade in the currently hovered item */
+
+.options:focus { transform: scale(1.2); background-color: rgba(77, 228, 250, 0.75); z-index: 1;}
+
+
+.boxes > li.blank{
+  transition: transform 1s;
+  opacity: 1;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn{
+  0%{
+    opacity: 0;
+  }
+
+  100%{
+    opacity: 1;
+  }
+}
+
+
+
+li.options {
+/*object-fit: contain;
+*/  
+  outline: 2px solid #95daa8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  vertical-align: middle;
+  height: 0;
+  list-style: none;
+  background-color: white;
+  height: 40px;
+  margin: 0; 
+  width: 50%;
+  clip-path: 
+    polygon(
+      0% 20px,                 /* top left */
+      20px 0%,                 /* top left */
+      calc(100% - 20px) 0%,    /* top right */
+      100% 20px,               /* top right */
+      100% calc(100% - 20px),  /* bottom right */
+      calc(100% - 20px) 100%,  /* bottom right */
+      20px 100%,               /* bottom left */
+      0 calc(100% - 20px)      /* bottom left */
+    );
+/*  center the internal span */
+
+}
+/*
+a:active, a:focus,
+li:active, li:focus {border: 5px solid orange}
+*/
+
+.animate-correct, .animate-incorrect {
+	-webkit-animation: flash linear .1s 3;
+	animation: flash linear .1s 3;
+}
+
+.animate-incorrect:hover, .animate-incorrect:focus, .animate-incorrect:active {
+	background-color: rgba(217, 148, 165, 0.85);
+}
+
+.animate-correct:hover, .animate-correct:focus, .animate-correct:active {
+  background-color: #77c05d;
+}
+
+@-webkit-keyframes flash {
+	0% { opacity: 1; } 
+	50% { opacity: .1; } 
+	100% { opacity: 1; }
+/*	100.0%  {background-color: green;}
+*/
+}
+@keyframes flash {
+	0% { opacity: 1; } 
+	50% { opacity: .1; } 
+	100% { opacity: 1; }
+/*	100.0%  {background-color: green;}
+*/}
+
+
+
+
+
+
+
+
+
+
+
+
+
