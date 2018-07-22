@@ -27,7 +27,7 @@ App.landingPage.generateLandingPage = function(){
 			<p class='intro'>Output is in hexadecimal notation</p>
 			<p class='intro'>Start the quiz when you are ready</p>
 			<form id='start-quiz'>
-				<button type=submit'>Start quiz</button>
+				<button type=submit' autofocus>Start quiz</button>
 			</form>
 		 </article>`
 	); 	
@@ -140,6 +140,9 @@ App.quizPage.statusBar = function(){
 	      <li data-id='10'></li>
       </ul>
     </div> 
+    <article>
+    	<h1>Guess the number!</h1>
+    </article>
 	`);
 	App.quizPage.updateStatusBar();
 }
@@ -156,7 +159,19 @@ App.quizPage.selectOption = function(answer){
 		$(event.currentTarget).removeClass('correct');
 		$(event.currentTarget).removeClass('incorrect');
 	});
-	$('.options').on('click',function(event){
+	$('.options').on('click keypress',function(event){
+	   if(event.type === 'click'){
+        innerFunction();
+    	} else if(event.type === 'keypress'){
+        const code = event.charCode || event.keyCode;
+        if((code === 32) || (code === 13)){
+        		innerFunction();
+        }
+    }
+		App.renderWindow();
+	});
+
+	function innerFunction(){
 		let currentTarget = $(event.currentTarget);
 		let val = currentTarget.html();
 		if(val == answer){
@@ -165,10 +180,32 @@ App.quizPage.selectOption = function(answer){
 		} else {
 			currentTarget.addClass('animate-incorrect');
 			App.answers.push('incorrect');
+			}
 		}
-		App.renderWindow();
-	});
 }
+
+// a11y
+App.quizPage.a11yClick = function(event){
+    if(event.type === 'click'){
+        return true;
+    }
+    else if(event.type === 'keypress'){
+        var code = event.charCode || event.keyCode;
+        if((code === 32)|| (code === 13)){
+            return true;
+        }
+    }
+    else{
+        return false;
+    }
+}
+
+$('li').on('click keypress', function(event){
+  if(a11yClick(event) === true){
+  		// App.quizPage.a11yClick();
+  		alert('hi');
+  }
+});
 
 App.quizPage.removeLanding = function(){
 	$('main').removeClass('landing');
@@ -183,11 +220,6 @@ App.quizPage.renderAnswers = function(answers) {
     	$('.options')[index].append(element);
   	});			
 }
-
-
-
-
-
 
 
 
@@ -257,11 +289,11 @@ App.quizPage.createOptionBoxes = function(answer, numberArray){
 	//$('main').prepend(`<article><p>${generatedNumber}</p></article>`);
 	$('main').append(
 		`<article class='multiple-choice'>
-			<ul class='example-boxes'>
-				<li class='options'></li>
-				<li class='options'></li>
-				<li class='options'></li>
-				<li class='options'></li>
+			<ul class='example-boxes' role='listbox'>
+				<li class='options' tabindex="1"></li>
+				<li class='options' tabindex="2"></li>
+				<li class='options' tabindex="3"></li>
+				<li class='options' tabindex="4"></li>
 			</ul>
 		</article>
 	`);	

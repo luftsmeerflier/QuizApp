@@ -24,6 +24,7 @@ a {
   justify-content: left;
   list-style: none;
 }
+<<<<<<< HEAD
 
 
 .tl_list li:hover,
@@ -31,3 +32,5 @@ a {
 /*  opacity: 0.4; transform: scale(0.9); 
 */}
 
+=======
+>>>>>>> 8bf6467... tabbed navigation for multiple choice list
