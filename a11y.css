@@ -1,0 +1,33 @@
+a {
+  justify-content: center;
+}
+
+.a,
+.a:hover,
+.a:focus {background-color: }
+.b,
+.b:hover,
+.b:focus  {background-color: }
+.c,
+.c:hover,
+.c:focus  {background-color: }
+
+/* Tab styling (optional) */
+
+.tl_container {margin: 2rem 0;}
+
+.tl_list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: left;
+  list-style: none;
+}
+
+
+.tl_list li:hover,
+.tl_list li:focus {
+/*  opacity: 0.4; transform: scale(0.9); 
+*/}
+

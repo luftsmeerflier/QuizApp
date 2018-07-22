@@ -71,11 +71,6 @@ ul {
   margin: 1em;
 }
 
-
-article.multiple-choice {
-
-}
-
 li {
   list-style: none;
   background-color: white;
@@ -191,6 +186,12 @@ header {
   width: 20%;
   height: 20%;
 }
+
+
+li:focus {
+  background-color: yellow;
+}
+
 
 p {
   text-align: center;
