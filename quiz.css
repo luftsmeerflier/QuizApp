@@ -67,9 +67,12 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 .tl_list { visibility: hidden; }
 =======
+=======
+>>>>>>> 8bf6467... tabbed navigation for multiple choice list
 =======
 >>>>>>> 8bf6467... tabbed navigation for multiple choice list
 /*li:active, li:focus
@@ -111,6 +114,7 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ul.tablist {
   margin: 0px;
   display: flex
@@ -138,6 +142,11 @@ a {
 }
 
 .options {
+=======
+
+
+li.options {
+>>>>>>> 8bf6467... tabbed navigation for multiple choice list
 =======
 
 
