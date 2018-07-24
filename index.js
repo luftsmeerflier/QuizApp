@@ -5,6 +5,9 @@
 //add new test branch
 //Requirements as feature requests
 const App = {
+	modal : {
+
+	},
 	numQuestions: 10,
 	counter : 0,
 	answers : [],
@@ -16,6 +19,32 @@ const App = {
 	}
 };
 
+App.modal.generate = function(){
+	$('main').append(`
+	<div class="modal">
+	 <p>Click a box with a number that corresponds with the number shown above </p>
+	  <button class="modal__button-close" tabindex="1">Close</button>
+	</div>
+	`);
+
+   $('.modal__button-close').bind('click', function() {
+      $('.modal').remove();
+   });
+}
+
+App.modal.endScreen = function(){
+	$('body').remove('main');
+	// 	<div class="modal">
+	//   <p>You got x/10. Restart</p>
+	//   <button class="modal__button-close" tabindex="1">Close</button>
+	// </div>
+	// `);
+
+ //   $('.modal__button-close').bind('click', function() {
+ //      App.generateQuizPage();
+ //   });
+}
+
 //Landing Page Generation
 App.landingPage.generateLandingPage = function(){
 	App.landingPage.generateBoxes();
@@ -23,9 +52,9 @@ App.landingPage.generateLandingPage = function(){
 	$('article').append(`<p class='result'><span class='output'>0x0</span></p>`); 
 	$('article').append(
 		`<article class='intro-article'>
-			<p class='intro'>This is a binary calculator</p>
-			<p class='intro'>Output is in hexadecimal notation</p>
-			<p class='intro'>Start the quiz when you are ready</p>
+			<p class='intro'>Click a box to compute its place value in binary</p>
+			<p class='intro'>Output is in hexadecimal</p>
+			<p class='intro'>Start the quiz to test your knowledge</p>
 			<form id='start-quiz'>
 				<button type=submit' autofocus>Start quiz</button>
 			</form>
@@ -85,6 +114,7 @@ App.landingPage.startQuiz = function(){
 		//randGen for answer param
 		let answer = App.randGen();
 		App.quizPage.generateQuizPage(answer);
+		App.modal.generate();
 	});
 }
 
@@ -103,26 +133,27 @@ App.landingPage.getTotal = function(VALUES){
 
 
 App.quizPage.generateQuizPage = function(answer){
-		let intArray = App.quizPage.makeArray(answer);
-		App.quizPage.removeLanding(answer, intArray);
+	if(App.answers.length === 10){
 		App.quizPage.statusBar();
-		App.landingPage.generateBoxes();
-		App.quizPage.createOptionBoxes(answer, intArray);
-		App.quizPage.renderAnswers(answer);
-		App.quizPage.selectOption(answer);
-		App.counter++;
+		App.modal.endScreen();
+	}
+	let intArray = App.quizPage.makeArray(answer);
+	App.quizPage.removeLanding(answer, intArray);
+	App.quizPage.statusBar();
+	App.landingPage.generateBoxes();
+	App.quizPage.createOptionBoxes(answer, intArray);
+	App.quizPage.renderAnswers(answer);
+	App.quizPage.selectOption(answer);
 }
 
 App.renderWindow = function(){
-window.setTimeout(function(){ 
-	if(App.answers.length < App.numQuestions){
-		App.quizPage.generateQuizPage(App.randGen());
-	} else {
-		App.quizPage.updateStatusBar();
-		Alert("Hi")
-	}}, 700);
+	window.setTimeout(function(){ 
+		if(App.answers.length <= App.numQuestions){
+			App.quizPage.generateQuizPage(App.randGen());
+			App.quizPage.updateStatusBar();
+		}
+	}, 700);
 }
-
 
 App.quizPage.statusBar = function(){
 	$('main').append(`
@@ -148,11 +179,14 @@ App.quizPage.statusBar = function(){
 }
 
 App.quizPage.updateStatusBar = function(){
-	$('.status-bar li').each(function(index, element){
-		let litmus = App.answers[index];
-		$(element).addClass(litmus);
-	});
-}
+		$('.status-bar li').each(function(index, element){
+			let litmus = App.answers[index];
+			$(element).addClass(litmus);
+		});
+		// if($('.status-bar li:last-child').hasClass('correct') || $('.status-bar li:last-child').hasClass('incorrect')){
+		// 	alert('hi');
+		// }
+}	
 
 App.quizPage.selectOption = function(answer){
 	$('.options').each(function(event){
@@ -202,8 +236,7 @@ App.quizPage.a11yClick = function(event){
 
 $('li').on('click keypress', function(event){
   if(a11yClick(event) === true){
-  		// App.quizPage.a11yClick();
-  		alert('hi');
+  		App.quizPage.a11yClick();
   }
 });
 
@@ -290,7 +323,7 @@ App.quizPage.createOptionBoxes = function(answer, numberArray){
 	$('main').append(
 		`<article class='multiple-choice'>
 			<ul class='example-boxes' role='listbox'>
-				<li class='options' tabindex="1"></li>
+				<li class='options' <index="1"></li>
 				<li class='options' tabindex="2"></li>
 				<li class='options' tabindex="3"></li>
 				<li class='options' tabindex="4"></li>
