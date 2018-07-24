@@ -1,5 +1,7 @@
 //Add progress meter
 
+
+//Add readme
 //As a user, should know current question/progress
 //As a user, I should know how many are correct or wrong
 //add new test branch
@@ -23,7 +25,7 @@ App.modal.generate = function(){
 	$('main').append(`
 	<div class="modal">
 	 <p>Click a box with a number that corresponds with the number shown above </p>
-	  <button class="modal__button-close" tabindex="1">Close</button>
+	  <button class="modal__button-close" role="close window" tabindex="1">Close</button>
 	</div>
 	`);
 
@@ -33,7 +35,7 @@ App.modal.generate = function(){
 }
 
 App.modal.endScreen = function(){
-	$('body').remove('main');
+	$('main').remove('');
 	// 	<div class="modal">
 	//   <p>You got x/10. Restart</p>
 	//   <button class="modal__button-close" tabindex="1">Close</button>
@@ -323,7 +325,7 @@ App.quizPage.createOptionBoxes = function(answer, numberArray){
 	$('main').append(
 		`<article class='multiple-choice'>
 			<ul class='example-boxes' role='listbox'>
-				<li class='options' <index="1"></li>
+				<li class='options' tabindex="1"></li>
 				<li class='options' tabindex="2"></li>
 				<li class='options' tabindex="3"></li>
 				<li class='options' tabindex="4"></li>
