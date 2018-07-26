@@ -2,9 +2,13 @@
 
 
 //Add readme
-//As a user, should know current question/progress
+//link to articles on binary, hex "don't know binary? etc."
+//Inform user if incorrect, correct : alert for now
+//Pull Jquery from a CDN
+// refactor li options to radio buttons
+//Use form instead of ul
+
 //As a user, I should know how many are correct or wrong
-//add new test branch
 //Requirements as feature requests
 const App = {
 	modal : {
@@ -21,10 +25,26 @@ const App = {
 	}
 };
 
+App.modal.intro = function(){
+	$('main').append(`
+	<div class="modal">
+	 <p>Click on the boxes to use this binary calculator</p>
+	 <p>The output is in hexadecimal (base-16) notation</p>
+	 <p>Learn about <a href="https://www.coursera.org/lecture/technical-support-fundamentals/how-to-count-in-binary-LrRHA">binary</a> and <a href="https://en.wikipedia.org/wiki/Hexadecimal">hexadecimal</a></p>
+	  <button class="modal__button-close" role="close window" tabindex="1">Close</button>
+	</div>
+	`);
+
+   $('.modal__button-close').bind('click', function() {
+      $('.modal').remove();
+   });
+}
+
 App.modal.generate = function(){
 	$('main').append(`
 	<div class="modal">
-	 <p>Click a box with a number that corresponds with the number shown above </p>
+	 <p>Click a number below corresponding to the value above</p>
+	 <p>Use tab navigation if you please, and press enter or the spacebar</p>
 	  <button class="modal__button-close" role="close window" tabindex="1">Close</button>
 	</div>
 	`);
@@ -35,32 +55,38 @@ App.modal.generate = function(){
 }
 
 App.modal.endScreen = function(){
-	$('main').remove('');
-	// 	<div class="modal">
-	//   <p>You got x/10. Restart</p>
-	//   <button class="modal__button-close" tabindex="1">Close</button>
-	// </div>
-	// `);
-
- //   $('.modal__button-close').bind('click', function() {
- //      App.generateQuizPage();
- //   });
+	$('main').append(`
+		<div class="modal">
+	  <p>You got ${correct()}/10</p>
+	  <button class="restart" tabindex="1">Restart</button>
+	</div>
+	`);
+   $('.restart').on('click', function() {
+   	App.answers = [];
+		App.quizPage.generateQuizPage(App.randGen());
+   });
+   function correct(){
+   	let num = 0;
+   	for(answer of App.answers){
+   		if(answer == 'correct'){
+   			num++;
+   		}
+   	}
+   	return num;
+   }
 }
+		//$('.result').append(`<div class='output'>${App.landingPage.getTotal(VALUES)}</span>`);
 
 //Landing Page Generation
 App.landingPage.generateLandingPage = function(){
 	App.landingPage.generateBoxes();
 	$('main').addClass('landing');
-	$('article').append(`<p class='result'><span class='output'>0x0</span></p>`); 
+	App.modal.intro();
+	$('article').append(`<div class="result"><div class='output'><p>0x0<p></div></div>`); 
 	$('article').append(
-		`<article class='intro-article'>
-			<p class='intro'>Click a box to compute its place value in binary</p>
-			<p class='intro'>Output is in hexadecimal</p>
-			<p class='intro'>Start the quiz to test your knowledge</p>
-			<form id='start-quiz'>
-				<button type=submit' autofocus>Start quiz</button>
-			</form>
-		 </article>`
+		`<form id='start-quiz' class=''>
+			<button type=submit' autofocus>Start quiz</button>
+		</form>`
 	); 	
 	App.landingPage.clickFunctionalityBoxes();
 	App.landingPage.startQuiz();
@@ -93,7 +119,7 @@ App.landingPage.unclickedBoxes = function(VALUES){
 		$(this).removeClass('unclicked');
 		$(this).addClass('clicked');
 		$('main').find('.output').remove();
-		$('.result').append(`<span class='output'>${App.landingPage.getTotal(VALUES)}</span>`);
+		$('.result').append(`<span class='output'><p>${App.landingPage.getTotal(VALUES)}</p></span>`);
 	});
 }
 
@@ -106,7 +132,7 @@ App.landingPage.clickedBoxes = function(VALUES){
 		$(this).addClass('unclicked');
 		$(this).empty('clicked');
 		$('main').find('.output').remove();
-		$('.result').append(`<span class='output'>${App.landingPage.getTotal(VALUES)}</span>`);
+		$('.result').append(`<span class='output'><p>${App.landingPage.getTotal(VALUES)}</p></span>`);
 	});
 }
 
@@ -135,10 +161,6 @@ App.landingPage.getTotal = function(VALUES){
 
 
 App.quizPage.generateQuizPage = function(answer){
-	if(App.answers.length === 10){
-		App.quizPage.statusBar();
-		App.modal.endScreen();
-	}
 	let intArray = App.quizPage.makeArray(answer);
 	App.quizPage.removeLanding(answer, intArray);
 	App.quizPage.statusBar();
@@ -149,12 +171,18 @@ App.quizPage.generateQuizPage = function(answer){
 }
 
 App.renderWindow = function(){
-	window.setTimeout(function(){ 
-		if(App.answers.length <= App.numQuestions){
+	if(App.answers.length == App.numQuestions){
+		App.quizPage.generateQuizPage(0);
+		App.quizPage.updateStatusBar();
+		window.setTimeout(function(){
+			App.modal.endScreen();
+		}, 500);
+	} else {
+		window.setTimeout(function(){ 
 			App.quizPage.generateQuizPage(App.randGen());
 			App.quizPage.updateStatusBar();
-		}
-	}, 700);
+		}, 700);
+	}
 }
 
 App.quizPage.statusBar = function(){
@@ -173,7 +201,7 @@ App.quizPage.statusBar = function(){
 	      <li data-id='10'></li>
       </ul>
     </div> 
-    <article>
+    <article class="article-header">
     	<h1>Guess the number!</h1>
     </article>
 	`);
@@ -185,9 +213,6 @@ App.quizPage.updateStatusBar = function(){
 			let litmus = App.answers[index];
 			$(element).addClass(litmus);
 		});
-		// if($('.status-bar li:last-child').hasClass('correct') || $('.status-bar li:last-child').hasClass('incorrect')){
-		// 	alert('hi');
-		// }
 }	
 
 App.quizPage.selectOption = function(answer){
@@ -197,15 +222,15 @@ App.quizPage.selectOption = function(answer){
 	});
 	$('.options').on('click keypress',function(event){
 	   if(event.type === 'click'){
-        innerFunction();
+        	innerFunction();
     	} else if(event.type === 'keypress'){
         const code = event.charCode || event.keyCode;
         if((code === 32) || (code === 13)){
         		innerFunction();
         }
     }
-		App.renderWindow();
 	});
+
 
 	function innerFunction(){
 		let currentTarget = $(event.currentTarget);
@@ -213,12 +238,26 @@ App.quizPage.selectOption = function(answer){
 		if(val == answer){
 			currentTarget.addClass('animate-correct');
 			App.answers.push('correct');
+			$('h1').replaceWith(`<h1>Correct!</h1>`);
 		} else {
 			currentTarget.addClass('animate-incorrect');
 			App.answers.push('incorrect');
-			}
+			$('h1').replaceWith(`<h1>Incorrect - it's ${answer}</h1>`);
 		}
+		//find out value of last answer
+		if(App.answers[App.answers.length - 1] == 'correct'){
+			setTimeout(function(){
+				App.renderWindow();
+			}, 250);
+		} else {
+			setTimeout(function(){
+				App.renderWindow();
+			}, 1000);
+		}
+	}
 }
+
+
 
 // a11y
 App.quizPage.a11yClick = function(event){
@@ -325,10 +364,10 @@ App.quizPage.createOptionBoxes = function(answer, numberArray){
 	$('main').append(
 		`<article class='multiple-choice'>
 			<ul class='example-boxes' role='listbox'>
-				<li class='options' tabindex="1"></li>
-				<li class='options' tabindex="2"></li>
-				<li class='options' tabindex="3"></li>
-				<li class='options' tabindex="4"></li>
+				<li class='options' role='button' tabindex="1"></li>
+				<li class='options' role='button' tabindex="2"></li>
+				<li class='options' role='button' tabindex="3"></li>
+				<li class='options' role='button' tabindex="4"></li>
 			</ul>
 		</article>
 	`);	
@@ -382,6 +421,9 @@ App.quizPage.generateNumber = function(answer, array){
 	}
 }
 
-$(function(){
+// $(function(){
+// 	App.landingPage.generateLandingPage();
+// });	
+$( document ).ready(function(){
 	App.landingPage.generateLandingPage();
 });	

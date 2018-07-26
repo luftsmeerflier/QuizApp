@@ -1,6 +1,11 @@
 .quizPage{
   justify-content: center/*flex-end | flex-end | center | space-between | space-around | space-evenly;*/
 }
+
+.article-header {
+  text-align: center;
+}
+
 /*****************Status bar****************/
 .status-bar {
   box-sizing: border-box;

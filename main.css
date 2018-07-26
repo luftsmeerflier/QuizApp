@@ -58,6 +58,10 @@ article {
   display: flex;
   align-self: center;
   margin: 1em;
+  padding: 1em;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: rgba(149, 218, 168, 0.85);
 }
 
 ul {
@@ -106,13 +110,24 @@ p {
   font-size: 35px;
 }
 
+h1 {
+  font-family: 'Chewy', cursive;
+  color: white;
+  font-size: 5em;
+
+}
+
+.result {
+  align-self: center;
+}
 .output {
-  background-color: #f8f5f7;
-  text-align: center;
-  border-size: border-box;
-  border: 0.2em solid #e6e77f;
-  border-radius: 10%;
-  margin: 5em;
+  display: flex;
+  align-self: center;
+  margin: 1em;
+  padding: 1em;
+  border-radius: 10px;
+  background-color: white;
+  border: .75em solid #e6e77f;
 }
 
 .results-section, section {
@@ -125,11 +140,6 @@ p {
 
 .last {
   margin: 0;
-}
-
-.result {
-  margin-top: 10px;
-  display: inline-block;
 }
 
 .intro {
@@ -165,7 +175,8 @@ header {
   display: flex;
   align-self: center;
   margin: 1em;
-}main
+}
+main
 /*JS functionality*/
 .unclicked {
   background-color: white;
@@ -199,13 +210,23 @@ p {
   display: block;
 }
 
+/*.result {
+  display: flex;
+  align-self: center;
+  margin: 1em;
+  padding: 1em;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: rgba(149, 218, 168, 0.85);
+}*/
+
 .output {
+  width: 100px;
   background-color: #f8f5f7;
-  text-align: center;
-  border-size: border-box;
   border: 0.2em solid goldenrod;
   border-radius: 10%;
   margin: 5em;
+  align-self: center;
 }
 
 .results-section, section {
@@ -220,9 +241,14 @@ p {
   margin: 0;
 }
 
+.boxes {
+  display: flex;
+}
+
 .result {
+  align-self: center;
   margin-top: 10px;
-  display: inline-block;
+  width: 100px;
 }
 
 .intro-article {
