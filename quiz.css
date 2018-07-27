@@ -1,10 +1,15 @@
 .quizPage{
   justify-content: center/*flex-end | flex-end | center | space-between | space-around | space-evenly;*/
 }
+
+.article-header {
+  text-align: center;
+}
+
 /*****************Status bar****************/
 .status-bar {
   box-sizing: border-box;
-  width: 90%;
+  width: 91%;
   height: 40px;
   background-color: rgba(255, 255, 255, .85);
   /*flex-box*/
@@ -13,7 +18,7 @@
   justify-content: center;
   /*  polygon corners*/
   clip-path: 
-    polygon(
+    polygon( 
       0% 20px,                 /* top left */
       20px 0%,                 /* top left */
       calc(100% - 20px) 0%,    /* top right */
@@ -65,8 +70,8 @@
 
 
 
-
-
+/*li:active, li:focus
+*/
 .example-boxes { visibility: hidden; }
 /* Prevents :hover from triggering in the gaps between items */
 
@@ -82,8 +87,11 @@
 .example-boxes > *:hover { opacity: 1; transform: scale(1); transition-delay: 0ms, 0ms; }
 /* Fade in the currently hovered item */
 
+button.options:focus { transform: scale(1.2); font-size: 2em;
+ z-index: 9998;}
 
-.boxes > li.blank{
+
+.boxes > button.blank{
   transition: transform 1s;
   opacity: 1;
   animation: fadeIn 1s ease-in-out;
@@ -99,16 +107,11 @@
   }
 }
 
-li.options {
-
-/*object-fit: contain;
-*/  
-  outline: 2px solid #95daa8;
-  display: flex;
-  flex-direction: column;
+.options {
+  position: relative;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  
   vertical-align: middle;
   height: 0;
   list-style: none;
@@ -128,21 +131,22 @@ li.options {
       0 calc(100% - 20px)      /* bottom left */
     );
 /*  center the internal span */
-
 }
+/*
+a:active, a:focus,
+li:active, li:focus {border: 5px solid orange}
+*/
 
 .animate-correct, .animate-incorrect {
 	-webkit-animation: flash linear .1s 3;
 	animation: flash linear .1s 3;
 }
 
-.animate-incorrect:hover {
-/*	background-color: #5dc075;
-*/	background-color: rgba(217, 148, 165, 0.85);
+.animate-incorrect:hover, .animate-incorrect:focus, .animate-incorrect:active {
+	background-color: rgba(217, 148, 165, 0.85);
 }
 
-.animate-correct:hover{
-/*	background-color: rgba(93, 192, 117, 0.85);*/
+.animate-correct:hover, .animate-correct:focus, .animate-correct:active {
   background-color: #77c05d;
 }
 
