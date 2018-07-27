@@ -102,8 +102,6 @@ button{
 .clicked {
   background-image: url('./lightning-icon.png'); 
   background-size: cover;
-  padding: 0;
-
 }
 
 p, button span {
@@ -190,8 +188,7 @@ main
 
 .clicked {
   color: white;
-/*  content: url('../lightning-icon.png');
-*/  content: url('./lightning-icon.png');
+  content: url('./lightning-icon.png');
   width: 20%;
   height: 20%;
 }
