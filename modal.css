@@ -6,12 +6,9 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #82cae8;
-
+  background-color: rgb(149, 218, 168);
   border: 0.75rem solid #e6e77f;
   border-radius: 10px;
-
-
   width: 50%;
   position: fixed;
   top: 50%;
@@ -46,8 +43,8 @@ h1 {
 .modal__button-close, #start-quiz, .restart{
   height: 50px;
   width: auto;
-/*  background-color: #f0f9f0;
-*/  border: none;
+  border: none;
+  margin: 25px;
   color:;
   height: 50px;
   display: flex;

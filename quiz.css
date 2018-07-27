@@ -9,7 +9,7 @@
 /*****************Status bar****************/
 .status-bar {
   box-sizing: border-box;
-  width: 90%;
+  width: 91%;
   height: 40px;
   background-color: rgba(255, 255, 255, .85);
   /*flex-box*/
@@ -87,7 +87,7 @@
 .example-boxes > *:hover { opacity: 1; transform: scale(1); transition-delay: 0ms, 0ms; }
 /* Fade in the currently hovered item */
 
-button.options:focus { transform: scale(1.2); font-size: 2em;  background-color: rgb(240, 197, 71);
+button.options:focus { transform: scale(1.2); font-size: 2em;
  z-index: 9998;}
 
 
@@ -109,7 +109,6 @@ button.options:focus { transform: scale(1.2); font-size: 2em;  background-color:
 
 .options {
   position: relative;
-  outline: 2px solid #95daa8;
   flex-direction: row;
   justify-content: center;
   align-items: center;
