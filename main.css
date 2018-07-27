@@ -54,16 +54,6 @@ article {
   border-bottom-right-radius: 10px;
 }
 
-#start-quiz {
-  display: flex;
-  align-self: center;
-  margin: 1em;
-  padding: 1em;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  background-color: rgba(149, 218, 168, 0.85);
-}
-
 ul {
   width: 100%;
   position: relative;
@@ -82,6 +72,18 @@ li {
 } 
 
 
+button{      
+  background-color: rgb(240, 249, 240);
+    border-radius: 10px;
+    border:none;
+
+    background-image:none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+
 #target{
   align-self: center;
   margin-top: 1em;
@@ -94,7 +96,6 @@ li {
   background-color: white;
   color: white; 
   padding-top: calc(20% - 2em);
-/*  border: 0.6em solid #95daa8;*/  
   border: 0.5em solid rgba(238, 248, 238, 0.85);
 }
 
@@ -105,11 +106,12 @@ li {
 
 }
 
-p {
+p, button span {
   text-align: center;
   margin: 0.2rem;
   display: block;
   font-size: 35px;
+  border-radius: 10px;
 }
 
 h1 {
@@ -172,13 +174,6 @@ header {
   height: 15%;
 }
 
-
-
-#start-quiz {
-  display: flex;
-  align-self: center;
-  margin: 1em;
-}
 main
 /*JS functionality*/
 .unclicked {
@@ -204,13 +199,6 @@ main
 
 li:focus {
   background-color: yellow;
-}
-
-
-p {
-  text-align: center;
-  margin: 0.2rem;
-  display: block;
 }
 
 /*.result {
@@ -263,3 +251,38 @@ p {
 }
 
 /* Fade in the currently hovered item */
+
+
+button:focus {
+  animation: pulse 2s infinite;
+}
+button:hover {
+  animation: none;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+    box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+      box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+}

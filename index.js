@@ -28,8 +28,8 @@ const App = {
 App.modal.intro = function(){
 	$('main').append(`
 	<div class="modal">
-	 <p>Click on the boxes to use this binary calculator</p>
-	 <p>The output is in hexadecimal (base-16) notation</p>
+	 <p>Click on the boxes to use the binary calculator</p>
+	 <p>Output is in hexadecimal (base-16)</p>
 	 <p>Learn about <a href="https://www.coursera.org/lecture/technical-support-fundamentals/how-to-count-in-binary-LrRHA">binary</a> and <a href="https://en.wikipedia.org/wiki/Hexadecimal">hexadecimal</a></p>
 	  <button class="modal__button-close" role="close window" autofocus><p>Close</p></button>
 	</div>
@@ -46,11 +46,11 @@ App.modal.generate = function(){
 	<div class="modal">
 	 <p>Click a number below corresponding to the value above</p>
 	 <p>Use tab navigation if you please, and press enter or the spacebar</p>
-	  <button class="modal__button-close" role="close window" autofocus><p>Close</p></button>
+	  <button class="modal__button-close" role="close window"><p>Close</p></button>
 	</div>
 	`);
 
-   $('.modal__button-close').bind('click', function() {
+   $('.modal__button-close').on('click', function() {
       $('.modal').remove();
    });
 }
@@ -85,7 +85,7 @@ App.landingPage.generateLandingPage = function(){
 	$('article').append(`<div class="result"><div class='output'><p>0x0<p></div></div>`); 
 	$('article').append(
 		`<form id='start-quiz'>
-			<button type='submit' class='start-quiz' autofocus>Start quiz</button>
+			<button type='submit' class='start-quiz' autofocus><span>Start quiz</span></button>
 		</form>`
 	); 	
 	App.landingPage.clickFunctionalityBoxes();
@@ -94,12 +94,12 @@ App.landingPage.generateLandingPage = function(){
 
 App.landingPage.generateBoxes = function(){
 	$('main').append(
-		`<article class='boxes'>
+		`<article class='boxes' role='binary-number'>
 			<ul class='boxes'>
-				<li class='box unclicked' data-id='8'></li>
-				<li class='box unclicked' data-id='4'></li>
-				<li class='box unclicked' data-id='2'></li>
-				<li class='box unclicked' data-id='1'></li>
+				<li class='box unclicked' data-id='8' tabindex='1'></li>
+				<li class='box unclicked' data-id='4' tabindex='2'></li>
+				<li class='box unclicked' data-id='2' tabindex='3'></li>
+				<li class='box unclicked' data-id='1' tabindex='4'></li>
 			</ul>
 		</article>`
 	);
@@ -201,7 +201,7 @@ App.quizPage.statusBar = function(){
 	      <li data-id='10'></li>
       </ul>
     </div> 
-    <article class="article-header">
+    <article class="article-header" aria-live="polite">
     	<h1>Guess the number!</h1>
     </article>
 	`);
@@ -346,7 +346,9 @@ const makeDisplayBoxes = function(numberArray, answer){
 		if(numberArray[i] == "0"){
 			$(this).removeClass('clicked unclicked');
 			$(this).addClass('blank');
+			$(this).html('0');
 		} else {
+			$(this).html('1');
 			$(this).removeClass('clicked unclicked');
 			$(this).addClass('lightning');
 		}
@@ -359,32 +361,27 @@ App.randGen = function(){
 	return Math.floor(Math.random() * 15);
 }
 
-			// <ul class='example-boxes' role='listbox'>
-			// 	<li class='options' role='button' tabindex="1"></li>
-			// 	<li class='options' role='button' tabindex="2"></li>
-			// 	<li class='options' role='button' tabindex="3"></li>
-			// 	<li class='options' role='button' tabindex="4"></li>
-			// </ul>
-
 App.quizPage.createOptionBoxes = function(answer, numberArray){
 	//$('main').prepend(`<article><p>${generatedNumber}</p></article>`);
 	$('main').append(
 		`<article class='multiple-choice'>
-			<form class="example-boxes" role='listbox'>
-				<button class='options' type="button" tabindex='1'></input>
-				<button class='options' type="button" tabindex='2'></input>
-				<button class='options' type="button" tabindex='3'></input>
-				<button class='options' type="button" tabindex='4'></input>
-			</form?
+			<form class="example-boxes" role='answers'>
+				<button class='options' type="button" tabindex='5'></input>
+				<button class='options' type="button" tabindex='6'></input>
+				<button class='options' type="button" tabindex='7'></input>
+				<button class='options' type="button" tabindex='8'></input>
+			</form>
 		</article>
 	`);	
 	$('.box').each(function(index){
 		if(numberArray[index] == "0"){
+			$(this).html('0')
 			$(this).removeClass('clicked unclicked');
 			$(this).addClass('blank');
 		} else {
 			$(this).removeClass('clicked unclicked');
 			$(this).addClass('lightning');
+			$(this).html('1')
 		}
 	});
 }

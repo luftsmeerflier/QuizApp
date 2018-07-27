@@ -6,7 +6,10 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: orange;
+  background-color: #82cae8;
+
+  border: 0.75rem solid #e6e77f;
+  border-radius: 10px;
 
 
   width: 50%;
@@ -19,7 +22,7 @@
   word-wrap: break-word;
   transform-origin: center;
   transition: opacity .4s ease-out, visibility .4s, transform .4s ;
-  z-index: 1;
+  z-index: 9999;
 }
 
 h1 {
@@ -43,10 +46,9 @@ h1 {
 .modal__button-close, #start-quiz, .restart{
   height: 50px;
   width: auto;
-  background-color: #f0f9f0;
-  border: none;
-  color: black;
-  padding: 10px;
+/*  background-color: #f0f9f0;
+*/  border: none;
+  color:;
   height: 50px;
   display: flex;
   align-items: center;
@@ -54,13 +56,8 @@ h1 {
   cursor: pointer;
   transition: color .2s;
   border-radius: 10px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 30px;
 }
+
 
 .modal__button-close::before {
   content: '';
