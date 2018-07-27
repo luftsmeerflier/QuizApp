@@ -36,18 +36,30 @@ h1 {
   transition: opacity .4s ease-out, visibility .4s;
 }
 
-.modal__button-close {
-  background-color: ;
+.modal__button-close p{
+	color: black;
+}
+
+.modal__button-close, #start-quiz, .restart{
+  height: 50px;
+  width: auto;
+  background-color: #f0f9f0;
   border: none;
-  color: #fff;
+  color: black;
   padding: 10px;
-  width: 50px;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: color .2s;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
 }
 
 .modal__button-close::before {

@@ -88,19 +88,21 @@ li {
 }
 
 /*JS functionality*/
-.box {
+.box, .clicked{
+  flex-basis: 20%;
+  align-items: stretch;
   background-color: white;
   color: white; 
-  width: 20%;
   padding-top: calc(20% - 2em);
 /*  border: 0.6em solid #95daa8;*/  
   border: 0.5em solid rgba(238, 248, 238, 0.85);
 }
 
 .clicked {
-  content: url('./lightning-icon.png');
-  padding-top: 0;
-  height: 20%;
+  background-image: url('./lightning-icon.png'); 
+  background-size: cover;
+  padding: 0;
+
 }
 
 p {
@@ -120,6 +122,7 @@ h1 {
 .result {
   align-self: center;
 }
+
 .output {
   display: flex;
   align-self: center;
@@ -144,7 +147,7 @@ h1 {
 
 .intro {
 
-html{
+html {
   background-image: url("./silicon-chip.jpg");
   background-size: cover;
   background-repeat: round;

@@ -3,8 +3,9 @@
 }
 
 .lightning {
-  content: url('./lightning-icon.png');
-  padding-top: 0;
+  background-image: url('./lightning-icon.png');
+  background-size: cover;
+  padding-top:   padding-top: calc(20% - 2em);
   margin-top: 2px;
   height: 20%;
   animation: shrinkFit 0.35s ease-in, wobble .11s 2; 

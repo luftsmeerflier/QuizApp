@@ -31,11 +31,12 @@ App.modal.intro = function(){
 	 <p>Click on the boxes to use this binary calculator</p>
 	 <p>The output is in hexadecimal (base-16) notation</p>
 	 <p>Learn about <a href="https://www.coursera.org/lecture/technical-support-fundamentals/how-to-count-in-binary-LrRHA">binary</a> and <a href="https://en.wikipedia.org/wiki/Hexadecimal">hexadecimal</a></p>
-	  <button class="modal__button-close" role="close window" tabindex="1">Close</button>
+	  <button class="modal__button-close" role="close window" autofocus><p>Close</p></button>
 	</div>
 	`);
 
-   $('.modal__button-close').bind('click', function() {
+   $('.modal__button-close').bind('click', function(e) {
+   	$(e.currentTarget).closest('button').focus();
       $('.modal').remove();
    });
 }
@@ -45,7 +46,7 @@ App.modal.generate = function(){
 	<div class="modal">
 	 <p>Click a number below corresponding to the value above</p>
 	 <p>Use tab navigation if you please, and press enter or the spacebar</p>
-	  <button class="modal__button-close" role="close window" tabindex="1">Close</button>
+	  <button class="modal__button-close" role="close window" autofocus><p>Close</p></button>
 	</div>
 	`);
 
@@ -58,7 +59,7 @@ App.modal.endScreen = function(){
 	$('main').append(`
 		<div class="modal">
 	  <p>You got ${correct()}/10</p>
-	  <button class="restart" tabindex="1">Restart</button>
+	  <button class="restart" tabindex="1"><p>Restart</p></button>
 	</div>
 	`);
    $('.restart').on('click', function() {
@@ -75,7 +76,6 @@ App.modal.endScreen = function(){
    	return num;
    }
 }
-		//$('.result').append(`<div class='output'>${App.landingPage.getTotal(VALUES)}</span>`);
 
 //Landing Page Generation
 App.landingPage.generateLandingPage = function(){
@@ -84,8 +84,8 @@ App.landingPage.generateLandingPage = function(){
 	App.modal.intro();
 	$('article').append(`<div class="result"><div class='output'><p>0x0<p></div></div>`); 
 	$('article').append(
-		`<form id='start-quiz' class=''>
-			<button type=submit' autofocus>Start quiz</button>
+		`<form id='start-quiz'>
+			<button type='submit' class='start-quiz' autofocus>Start quiz</button>
 		</form>`
 	); 	
 	App.landingPage.clickFunctionalityBoxes();
@@ -359,16 +359,23 @@ App.randGen = function(){
 	return Math.floor(Math.random() * 15);
 }
 
+			// <ul class='example-boxes' role='listbox'>
+			// 	<li class='options' role='button' tabindex="1"></li>
+			// 	<li class='options' role='button' tabindex="2"></li>
+			// 	<li class='options' role='button' tabindex="3"></li>
+			// 	<li class='options' role='button' tabindex="4"></li>
+			// </ul>
+
 App.quizPage.createOptionBoxes = function(answer, numberArray){
 	//$('main').prepend(`<article><p>${generatedNumber}</p></article>`);
 	$('main').append(
 		`<article class='multiple-choice'>
-			<ul class='example-boxes' role='listbox'>
-				<li class='options' role='button' tabindex="1"></li>
-				<li class='options' role='button' tabindex="2"></li>
-				<li class='options' role='button' tabindex="3"></li>
-				<li class='options' role='button' tabindex="4"></li>
-			</ul>
+			<form class="example-boxes" role='listbox'>
+				<button class='options' type="button" tabindex='1'></input>
+				<button class='options' type="button" tabindex='2'></input>
+				<button class='options' type="button" tabindex='3'></input>
+				<button class='options' type="button" tabindex='4'></input>
+			</form?
 		</article>
 	`);	
 	$('.box').each(function(index){
