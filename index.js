@@ -27,41 +27,49 @@ const App = {
 App.landingPage.generateLandingPage = function(){
 	App.landingPage.generateBoxes();
 	$('main').addClass('landing');
-	$('article').append(`<div class='result'><div class='output'><p>0x0</p></div></div>`); 
-   $('article').append(`<aside>
-                           <p>Click on a box to use the binary calculator</p>
-                           <p>You can tab over elements and press enter or space to select</p>
-                           <p>Once you understand binary, start the multiple-choice quiz</p><
+	$('main').append(`<div class='result' aria-live="polite"><p class='chewy'>0x0</p></div>`); 
+   $('main').append(`<aside class='chewy'>
+                           <p>Click the boxes</p>
+                           <p>This is a <a href="https://www.youtube.com/watch?v=ry1hpm1GXVI">binary calculator</a></p>
+                           <p>Output is in <a href="https://www.youtube.com/watch?v=4EJay-6Bioo">hexadecimal</a></p>
                         </aside>`)
-	$('article').append(
+	$('main').append(
 		`<form id='start-quiz'>
-			<button type='submit' class='start-quiz' autofocus><h1><span class='start-quiz'>Start quiz<span></h1></button>
+         <fieldset>
+            <legend>Start the quiz</legend>
+   			<button type='submit' class='start-quiz' autofocus>
+               <h1><span class='start-quiz'>Start quiz<span></h1>
+            </button>
+         </fieldset>
 		</form>`
 	); 	
 	App.landingPage.clickFunctionalityBoxes();
 	App.landingPage.startQuiz();
-};
+}
 
 App.landingPage.generateBoxes = function(){
 	$('main').append(
 		`<article class='boxes'>
-		     <form>
-       <ul class="boxes">
-          <button type="button" class="box unclicked" data-id='8'>
-             <li></li>
-          </button>
-          <button type="button" class="box unclicked" data-id='4'>
-             <li></li>
-          </button>
-          <button type="button" class="box unclicked" data-id='2'>
-             <li></li>
-          </button>
-          <button type="button" class="box unclicked" data-id='1'>
-             <li></li>
-          </button>
-       </ul>     
-     </form>
-		</article>`
+		    <form>
+            <fieldset>
+               <legend>Tab over the buttons to read the 4-bit binary value</legend>
+                  <ul class="boxes">
+                   <button type="button" class="box unclicked" data-id='8'>
+                      <li>0</li>
+                   </button>
+                   <button type="button" class="box unclicked" data-id='4'>
+                      <li>0</li>
+                   </button>
+                   <button type="button" class="box unclicked" data-id='2'>
+                      <li>0</li>
+                   </button>
+                   <button type="button" class="box unclicked" data-id='1'>
+                      <li>0</li>
+                   </button>
+                  </ul>
+            </fieldset>     
+         </form>
+	  </article>`
 	);
 }
 
@@ -75,24 +83,26 @@ App.landingPage.unclickedBoxes = function(){
       event.preventDefault();
       const num = $(event.currentTarget).data('id');
       App.VALUES.push(num);
+      $(event.currentTarget).find('li').append('1');
       $(event.currentTarget).removeClass('unclicked');
       $(event.currentTarget).addClass('clicked');
-      $('main').find('.output').remove();
-      $('.result').append(`<span class='output'><p>${App.landingPage.getTotal(App.VALUES)}</p></span>`);
+      $(event.currentTarget).addClass('active');
+      $('main').find('.result').replaceWith(`<div class="result"><p class='chewy'>${App.landingPage.getTotal(App.VALUES)}</p></div>`);
    });  
 }
+
+
 
 App.landingPage.clickedBoxes = function(){
    $('ul').on('click', '.clicked', function(event){
       const num = $(event.currentTarget).data('id');
-      $(event.currentTarget).find('li').append(num);
+      $(event.currentTarget).find('li').empty().append('0');
       const indexToRemove = App.VALUES.indexOf(num);
       App.VALUES.splice(indexToRemove, 1);
-      $(event.currentTarget).empty('clicked');
       $(event.currentTarget).removeClass('clicked');
       $(event.currentTarget).addClass('unclicked');
-      $('main').find('.output').remove();
-      $('.result').append(`<span class='output'><p>${App.landingPage.getTotal(App.VALUES)}</p></span>`);
+      $(event.currentTarget).removeClass('active');
+      $('main').find('.result').replaceWith(`<div class="result"><p class='chewy'>${App.landingPage.getTotal(App.VALUES)}</p></div>`);
    });
 }
 
@@ -126,10 +136,10 @@ App.quizPage.generateQuizPage = function(answer){
 	App.quizPage.selectOption(answer);
 }
 
-App.quizPage.restart = function(){
+App.quizPage.restart = function(){ 
    $('.article-header').empty();
    $('.article-header').append(`<h2>You got ${App.quizPage.correct()} out of ${App.numQuestions} correct!</h2>`);
-   $('.multiple-choice').empty();
+   $('.multiple-choice').remove();
 
    $('.boxes').remove();
    App.landingPage.generateBoxes();
@@ -190,7 +200,7 @@ App.quizPage.statusBar = function(){
       <div role="header">
          <p class='invisible' aria-live="polite">Current score: ${App.quizPage.correct()} correct</p>
       </div>
-    	<h1>Guess the number!</h1>
+    	<h1>Select the answer!</h1>
     </article>
 	`);
 }
@@ -203,45 +213,54 @@ App.quizPage.updateStatusBar = function(){
 }	
 
 App.quizPage.selectOption = function(answer){
-        $('.options').each(function(event){
-                $(event.currentTarget).removeClass('correct');
-                $(event.currentTarget).removeClass('incorrect');
-        });
-        $('.options').on('click keypress',function(event){
-           if(event.type === 'click'){
-                innerFunction();
-        } else if(event.type === 'keypress'){
-        const code = event.charCode || event.keyCode;
-        if((code === 32) || (code === 13)){
-                        innerFunction();
-        }
-    }
-        });
+   $('.options').each((event) => {
+      $(event.currentTarget).removeClass('correct');
+      $(event.currentTarget).removeClass('incorrect');
+   });
 
+  $('.options').on('click keypress',function(event){
+      event.preventDefault();
+      if(selected(event)){
+         innerFunction(event);
+         //prevents 'overloading' of simultaneous submits when key pressed down
+         $(event.currentTarget).prop("disabled", true); 
+      };
 
-        function innerFunction(){
-                let currentTarget = $(event.currentTarget);
-                let val = currentTarget.html();
-                if(val == answer){
-                        currentTarget.addClass('animate-correct');
-                        App.answers.push('correct');
-                        $('h1').replaceWith(`<h1>Correct!</h1>`);
-                } else {
-                        currentTarget.addClass('animate-incorrect');
-                        App.answers.push('incorrect');
-                        $('h1').replaceWith(`<h1>Incorrect - it's ${answer}</h1>`);
-                }
-                //find out value of last answer
-                if(App.answers[App.answers.length - 1] == 'correct'){
-                        setTimeout(function(){
-                                App.renderWindow();
-                        }, 250);
-                } else {
-                        setTimeout(function(){
-                                App.renderWindow();
-                        }, 1000);
-                }
-        }
+      function selected(event){
+         if(event.type === 'click'){
+            return true;
+         } else if( event.type === 'keypress' ){
+            const code = event.charCode || event.keyCode;
+            if((code === 32) || (code === 13)){
+               return true;
+            }
+         }
+      }
+   });
+
+      function innerFunction(event){
+         let currentTarget = $(event.currentTarget);
+         let val = currentTarget.html();
+         if(val == answer){
+            currentTarget.addClass('animate-correct');
+            App.answers.push('correct');
+            $('h1').replaceWith(`<h1>Correct!</h1>`);
+         } else {
+            currentTarget.addClass('animate-incorrect');
+            App.answers.push('incorrect');
+            $('h1').replaceWith(`<h1>Incorrect - it's ${answer}</h1>`);
+         }
+         //find out value of last answer
+         if(App.answers[App.answers.length - 1] == 'correct'){
+            setTimeout(function(){
+                    App.renderWindow();
+            }, 250);
+         } else {
+            setTimeout(function(){
+                    App.renderWindow();
+            }, 1000);
+         }
+      }
 }
 
 
@@ -350,14 +369,16 @@ App.randGen = function(){
 App.quizPage.createOptionBoxes = function(answer, numberArray){
 	//$('main').prepend(`<article><p>${generatedNumber}</p></article>`);
 	$('main').append(
-		`<article class='multiple-choice'>
+		`
 			<form class="example-boxes">
-				<button class='options' type="button"></button>
-				<button class='options' type="button"></button>
-				<button class='options' type="button"></button>
-				<button class='options' type="button"></button>
+            <fieldset>
+               <legend>Select an answer</legend>
+   				<button class='options' type="button"></button>
+   				<button class='options' type="button"></button>
+   				<button class='options' type="button"></button>
+   				<button class='options' type="button"></button>
+            </fieldset>
 			</form>
-		</article>
 	`);	
 	$('.box').each(function(index){
 		if(numberArray[index] == "0"){

@@ -6,8 +6,6 @@ html {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-
-
 }
 
 body {
@@ -16,47 +14,51 @@ body {
   justify-content: center;
 }
 
-main, article, header {
+main, header, .result, aside{
   border: 0.75rem solid #e6e77f;
   border-radius: 10px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
+aside {
+  background-color: #7abf8d;
+  width: 75%;
+  align-self: center;
+  padding: 2.5%;
+}
+
 header {
   height: 15%;
 }
 
-
 main {
   background-color: rgba(149, 218, 168, 0.59);
-  height: 95vh;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  align-items: center;
   width: 80%;
-  justify-content: center;
+  justify-content: space-evenly/*flex-end | flex-end | center | space-between | space-around | space-evenly;*/
 }
 
 article {
-  background-color: rgba(149, 218, 168, 0.85);
-  display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 100%;
   align-self: center;
   padding: 1em;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
+.quizPage.article {
+  width: 90%;
+}
+
 ul {
-  width: 100%;
-  position: relative;
   display: flex;
-  flex-flow: row wrap;
   justify-content: space-around;
-  align-self: center;
   box-sizing: border-box;
-  margin: 1em;
 }
 
 li {
@@ -64,10 +66,6 @@ li {
   background-color: white;
   margin: 1px;
 } 
-
-article.article-header > div > p {
-  color: #95daa8;
-}
 
 p.invisible {
   font-size: 1px;
@@ -115,11 +113,18 @@ button {
   margin: 0 auto;
 }
 
-h1, h2 {
+h1, h2, .chewy {
   font-family: 'Chewy', cursive;
   color: white;
   font-size: 5em;
+}
 
+h1 {
+  margin: 0;
+}
+
+a {
+  color: white;
 }
 
 .span-restart, .start-quiz {
@@ -135,21 +140,9 @@ form#start-quiz, form#restart {
   align-self: center;
 }
 
-.result {
-  align-self: center;
-  width: 80px;
-}
-
-.results-section, section {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 1.2em;
-  height: 2.5em;
-}
-
-.last {
-  margin: 0;
+article.article-header > div > p {
+  color: #95daa8;
+  margin: 20px;
 }
 
 body {
@@ -158,7 +151,7 @@ body {
   justify-content: center;
 }
 
-main, article, header {
+main, header {
   background-color: #95daa8;
   border: 0.75rem solid #e6e77f;
   border-radius: 10px;
@@ -192,34 +185,20 @@ li:focus {
   background-color: yellow;
 }
 
-
-.results-section, section {
+section {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 1.2em;
-  height: 2.5em;
-}
-
-.last {
-  margin: 0;
-}
-
-.boxes {
-  display: flex;
+  flex-direction: column;
+  width: 95%;
+  outline: ;
+  justify-content: space-between;
 }
 
 .result {
   align-self: center;
-  margin: 5%;
-  width: 100px;
-}
-
-.output {
-  width: 100px;
-  background-color: #f8f5f7;
-  border-radius: 10%;
-  align-self: center;
+  width: auto;
+  background-color: #7abf8d;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .intro-article {
@@ -265,4 +244,51 @@ button:hover {
       box-shadow: 0 0 0 0 rgba(204,169,44, 0);
   }
 }
+}
+
+.lightning {
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+    -webkit-animation-name: grow;
+    -webkit-animation-direction:alternate
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: grow;
+    -moz-animation-duration: 2s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    
+    transition-property: -moz-transform;
+    transition-duration: 1s;
+    animation-name: grow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@-webkit-keyframes grow {
+    from {
+        -webkit-transform:scale(1);
+    }
+    to {
+        -webkit-transform:scale(4.333);
+    }
+}
+@-moz-keyframes grow {
+    from {
+        -moz-transform:scale(1);
+    }
+    to {
+        -moz-transform:scale(4.333);
+    }
+}
+@keyframes grow {
+    from {
+        transform:scale(1);
+    }
+    to {
+        transform:scale(4.333);
+    }
 }
