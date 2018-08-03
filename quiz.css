@@ -88,7 +88,8 @@
 /* Fade in the currently hovered item */
 
 button.options:focus { transform: scale(1.2); font-size: 2em;
- z-index: 9998;}
+ z-index: 9998;
+}
 
 
 .boxes > button.blank{
@@ -118,7 +119,7 @@ button.options:focus { transform: scale(1.2); font-size: 2em;
   background-color: white;
   height: 40px;
   margin: 0; 
-  width: 50%;
+  width: 48%;
   clip-path: 
     polygon(
       0% 20px,                 /* top left */

@@ -11,9 +11,7 @@
 //As a user, I should know how many are correct or wrong
 //Requirements as feature requests
 const App = {
-	modal : {
-
-	},
+   VALUES : [0],
 	numQuestions: 10,
 	counter : 0,
 	answers : [],
@@ -25,67 +23,19 @@ const App = {
 	}
 };
 
-App.modal.intro = function(){
-	$('main').append(`
-	<div class="modal">
-	 <p>Click on the boxes to use the binary calculator</p>
-	 <p>Output is in hexadecimal (base-16)</p>
-	 <p>Learn about <a href="https://www.coursera.org/lecture/technical-support-fundamentals/how-to-count-in-binary-LrRHA">binary</a> and <a href="https://en.wikipedia.org/wiki/Hexadecimal">hexadecimal</a></p>
-	  <button class="modal__button-close" role="close window" autofocus><p>Close</p></button>
-	</div>
-	`);
-
-   $('.modal__button-close').bind('click', function(e) {
-   	$(e.currentTarget).closest('button').focus();
-      $('.modal').remove();
-   });
-}
-
-App.modal.generate = function(){
-	$('main').append(`
-	<div class="modal">
-	 <p>Click a number below corresponding to the value above</p>
-	 <p>Use tab navigation if you please, and press enter or the spacebar</p>
-	  <button class="modal__button-close" role="close window"><p>Close</p></button>
-	</div>
-	`);
-
-   $('.modal__button-close').on('click', function() {
-      $('.modal').remove();
-   });
-}
-
-App.modal.endScreen = function(){
-	$('main').append(`
-		<div class="modal">
-	  <p>You got ${correct()}/10</p>
-	  <button class="restart" tabindex="1"><p>Restart</p></button>
-	</div>
-	`);
-   $('.restart').on('click', function() {
-   	App.answers = [];
-		App.quizPage.generateQuizPage(App.randGen());
-   });
-   function correct(){
-   	let num = 0;
-   	for(answer of App.answers){
-   		if(answer == 'correct'){
-   			num++;
-   		}
-   	}
-   	return num;
-   }
-}
-
 //Landing Page Generation
 App.landingPage.generateLandingPage = function(){
 	App.landingPage.generateBoxes();
 	$('main').addClass('landing');
-	App.modal.intro();
-	$('article').append(`<div class="result"><div class='output'><p>0x0<p></div></div>`); 
+	$('article').append(`<div class='result'><div class='output'><p>0x0</p></div></div>`); 
+   $('article').append(`<aside>
+                           <p>Click on a box to use the binary calculator</p>
+                           <p>You can tab over elements and press enter or space to select</p>
+                           <p>Once you understand binary, start the multiple-choice quiz</p><
+                        </aside>`)
 	$('article').append(
 		`<form id='start-quiz'>
-			<button type='submit' class='start-quiz' autofocus><span>Start quiz</span></button>
+			<button type='submit' class='start-quiz' autofocus><h1><span class='start-quiz'>Start quiz<span></h1></button>
 		</form>`
 	); 	
 	App.landingPage.clickFunctionalityBoxes();
@@ -94,46 +44,56 @@ App.landingPage.generateLandingPage = function(){
 
 App.landingPage.generateBoxes = function(){
 	$('main').append(
-		`<article class='boxes' role='binary-number'>
-			<ul class='boxes'>
-				<li class='box unclicked' data-id='8' tabindex='1'></li>
-				<li class='box unclicked' data-id='4' tabindex='2'></li>
-				<li class='box unclicked' data-id='2' tabindex='3'></li>
-				<li class='box unclicked' data-id='1' tabindex='4'></li>
-			</ul>
+		`<article class='boxes'>
+		     <form>
+       <ul class="boxes">
+          <button type="button" class="box unclicked" data-id='8'>
+             <li></li>
+          </button>
+          <button type="button" class="box unclicked" data-id='4'>
+             <li></li>
+          </button>
+          <button type="button" class="box unclicked" data-id='2'>
+             <li></li>
+          </button>
+          <button type="button" class="box unclicked" data-id='1'>
+             <li></li>
+          </button>
+       </ul>     
+     </form>
 		</article>`
 	);
 }
 
 App.landingPage.clickFunctionalityBoxes = function(){
-	const VALUES = [0];
-	App.landingPage.unclickedBoxes(VALUES);
-	App.landingPage.clickedBoxes(VALUES);
+	App.landingPage.unclickedBoxes(App.VALUES);
+	App.landingPage.clickedBoxes(App.VALUES);
 }
 
-//addClickFunctionality support functions:
-App.landingPage.unclickedBoxes = function(VALUES){
-	$('ul').on('click', '.unclicked', function(){
-		const num = $(this).data('id');
-		VALUES.push(num);
-		$(this).removeClass('unclicked');
-		$(this).addClass('clicked');
-		$('main').find('.output').remove();
-		$('.result').append(`<span class='output'><p>${App.landingPage.getTotal(VALUES)}</p></span>`);
-	});
+App.landingPage.unclickedBoxes = function(){
+   $('ul').on('click', '.unclicked', function(event){
+      event.preventDefault();
+      const num = $(event.currentTarget).data('id');
+      App.VALUES.push(num);
+      $(event.currentTarget).removeClass('unclicked');
+      $(event.currentTarget).addClass('clicked');
+      $('main').find('.output').remove();
+      $('.result').append(`<span class='output'><p>${App.landingPage.getTotal(App.VALUES)}</p></span>`);
+   });  
 }
 
-App.landingPage.clickedBoxes = function(VALUES){
-	$('ul').on('click', '.clicked', function(){
-		const num = $(this).data('id');
-		const indexToRemove = VALUES.indexOf(num);
-		VALUES.splice(indexToRemove, 1);
-		$(this).removeClass('clicked');
-		$(this).addClass('unclicked');
-		$(this).empty('clicked');
-		$('main').find('.output').remove();
-		$('.result').append(`<span class='output'><p>${App.landingPage.getTotal(VALUES)}</p></span>`);
-	});
+App.landingPage.clickedBoxes = function(){
+   $('ul').on('click', '.clicked', function(event){
+      const num = $(event.currentTarget).data('id');
+      $(event.currentTarget).find('li').append(num);
+      const indexToRemove = App.VALUES.indexOf(num);
+      App.VALUES.splice(indexToRemove, 1);
+      $(event.currentTarget).empty('clicked');
+      $(event.currentTarget).removeClass('clicked');
+      $(event.currentTarget).addClass('unclicked');
+      $('main').find('.output').remove();
+      $('.result').append(`<span class='output'><p>${App.landingPage.getTotal(App.VALUES)}</p></span>`);
+   });
 }
 
 App.landingPage.startQuiz = function(){
@@ -142,21 +102,17 @@ App.landingPage.startQuiz = function(){
 		//randGen for answer param
 		let answer = App.randGen();
 		App.quizPage.generateQuizPage(answer);
-		App.modal.generate();
 	});
 }
 
-App.landingPage.getTotal = function(VALUES){
-	const val = VALUES.reduce(reducer);
+App.landingPage.getTotal = function(){
+	const val = App.VALUES.reduce(reducer);
 	const hex = val.toString(16);
 	return `0x${hex}`;
 	function reducer(total, number){
 		return total + number;
 	}
 }
-
-
-
 //generateQuizPage
 
 
@@ -170,17 +126,45 @@ App.quizPage.generateQuizPage = function(answer){
 	App.quizPage.selectOption(answer);
 }
 
+App.quizPage.restart = function(){
+   $('.article-header').empty();
+   $('.article-header').append(`<h2>You got ${App.quizPage.correct()} out of ${App.numQuestions} correct!</h2>`);
+   $('.multiple-choice').empty();
+
+   $('.boxes').remove();
+   App.landingPage.generateBoxes();
+   App.landingPage.clickFunctionalityBoxes();
+
+
+
+   $('main').append(`<form id="restart"><button type="button"><h1><span class="span-restart">Try again</span></h1></button></form>`);
+   //restart button
+   $('#restart input[type=button], #restart button').on('click', function(event) { 
+      window.location.reload(true);
+   });
+}
+
+App.quizPage.correct = function(){
+   let num = 0;
+   for(answer of App.answers){
+      if(answer == 'correct'){
+         num++;
+      }
+   }
+   return num;
+}
+
 App.renderWindow = function(){
-	if(App.answers.length == App.numQuestions){
-		App.quizPage.generateQuizPage(0);
-		App.quizPage.updateStatusBar();
-		window.setTimeout(function(){
-			App.modal.endScreen();
-		}, 500);
+	if(App.answers.length == App.numQuestions){ 
+      window.setTimeout(function(){ 
+         App.landingPage.clickFunctionalityBoxes();
+         App.quizPage.updateStatusBar();
+         App.quizPage.restart();
+      }, 500);
 	} else {
 		window.setTimeout(function(){ 
 			App.quizPage.generateQuizPage(App.randGen());
-			App.quizPage.updateStatusBar();
+         App.quizPage.updateStatusBar();
 		}, 700);
 	}
 }
@@ -202,10 +186,13 @@ App.quizPage.statusBar = function(){
       </ul>
     </div> 
     <article class="article-header" aria-live="polite">
+      <h2>Question: ${App.answers.length + 1}/${App.numQuestions}</h2>
+      <div role="header">
+         <p class='invisible' aria-live="polite">Current score: ${App.quizPage.correct()} correct</p>
+      </div>
     	<h1>Guess the number!</h1>
     </article>
 	`);
-	App.quizPage.updateStatusBar();
 }
 
 App.quizPage.updateStatusBar = function(){
@@ -219,18 +206,19 @@ App.quizPage.selectOption = function(answer){
 	$('.options').each(function(event){
 		$(event.currentTarget).removeClass('correct');
 		$(event.currentTarget).removeClass('incorrect');
-	});
-	$('.options').on('click keypress',function(event){
-	   if(event.type === 'click'){
-        	innerFunction();
-    	} else if(event.type === 'keypress'){
-        const code = event.charCode || event.keyCode;
-        if((code === 32) || (code === 13)){
-        		innerFunction();
-        }
-    }
+      innerFunction(selectedAnswer());
 	});
 
+   function selectedAnswer = function(){
+   $('.options').on('click keypress',function(event){
+         if(event.type === 'click'){
+            innerFunction();
+         } else if(event.type === 'keypress'){
+           const code = event.charCode || event.keyCode;
+           if((code === 32) || (code === 13)){
+               innerFunction();
+           }
+       }
 
 	function innerFunction(){
 		let currentTarget = $(event.currentTarget);
@@ -365,11 +353,11 @@ App.quizPage.createOptionBoxes = function(answer, numberArray){
 	//$('main').prepend(`<article><p>${generatedNumber}</p></article>`);
 	$('main').append(
 		`<article class='multiple-choice'>
-			<form class="example-boxes" role='answers'>
-				<button class='options' type="button" tabindex='5'></input>
-				<button class='options' type="button" tabindex='6'></input>
-				<button class='options' type="button" tabindex='7'></input>
-				<button class='options' type="button" tabindex='8'></input>
+			<form class="example-boxes">
+				<button class='options' type="button"></button>
+				<button class='options' type="button"></button>
+				<button class='options' type="button"></button>
+				<button class='options' type="button"></button>
 			</form>
 		</article>
 	`);	
@@ -424,10 +412,7 @@ App.quizPage.generateNumber = function(answer, array){
 		return App.quizPage.generateNumber(answer, array);
 	}
 }
-
-// $(function(){
-// 	App.landingPage.generateLandingPage();
-// });	
+	
 $( document ).ready(function(){
 	App.landingPage.generateLandingPage();
 });	

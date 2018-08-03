@@ -10,15 +10,11 @@
   height: 20%;
   animation: shrinkFit 0.35s ease-in, wobble .11s 2; 
   animation-delay: 0s, .425s;
-/*  wobble */
-/*  -webkit-animation: wobble .2s 3;
-  animation: wobble .2s 3; */
 }
 
 @keyframes shrinkFit {
   from {
     transform: scale(3);
-
   }
   to {
     transform: scale(1);

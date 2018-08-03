@@ -1,16 +1,13 @@
 * {
   box-sizing: border-box;
 }
-/*body, html{
-  height: 100vh;
-  height: 100vh;
-}*/
-
-html{
+html {
   background-image: url("./silicon-chip.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+
+
 }
 
 body {
@@ -32,8 +29,6 @@ header {
 
 
 main {
-/*    background-color: #5dc075;
-*/
   background-color: rgba(149, 218, 168, 0.59);
   height: 95vh;
   display: flex;
@@ -41,7 +36,6 @@ main {
   width: 80%;
   justify-content: center;
 }
-
 
 article {
   background-color: rgba(149, 218, 168, 0.85);
@@ -71,22 +65,27 @@ li {
   margin: 1px;
 } 
 
+article.article-header > div > p {
+  color: #95daa8;
+}
+
+p.invisible {
+  font-size: 1px;
+}
 
 button{      
   background-color: rgb(240, 249, 240);
     border-radius: 10px;
     border:none;
-
     background-image:none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
 }
 
+button.box.lightning {
+    pointer-events: none;
 
-#target{
-  align-self: center;
-  margin-top: 1em;
 }
 
 /*JS functionality*/
@@ -112,25 +111,33 @@ p, button span {
   border-radius: 10px;
 }
 
-h1 {
+button {
+  margin: 0 auto;
+}
+
+h1, h2 {
   font-family: 'Chewy', cursive;
   color: white;
   font-size: 5em;
 
 }
 
-.result {
+.span-restart, .start-quiz {
+  text-shadow:
+    -1px -1px 0 gray,
+    1px -1px 0 gray,
+    -1px 1px 0 gray,
+    1px 1px 0 gray;
+}
+
+form#start-quiz, form#restart {
+  display: flex;
   align-self: center;
 }
 
-.output {
-  display: flex;
+.result {
   align-self: center;
-  margin: 1em;
-  padding: 1em;
-  border-radius: 10px;
-  background-color: white;
-  border: .75em solid #e6e77f;
+  width: 80px;
 }
 
 .results-section, section {
@@ -143,15 +150,6 @@ h1 {
 
 .last {
   margin: 0;
-}
-
-.intro {
-
-html {
-  background-image: url("./silicon-chip.jpg");
-  background-size: cover;
-  background-repeat: round;
-  background-position: center;
 }
 
 body {
@@ -172,13 +170,9 @@ header {
   height: 15%;
 }
 
-main
-/*JS functionality*/
 .unclicked {
   background-color: white;
   color: white; 
-  padding-top: 20%;
-
 }
 
 .click {
@@ -198,24 +192,6 @@ li:focus {
   background-color: yellow;
 }
 
-/*.result {
-  display: flex;
-  align-self: center;
-  margin: 1em;
-  padding: 1em;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  background-color: rgba(149, 218, 168, 0.85);
-}*/
-
-.output {
-  width: 100px;
-  background-color: #f8f5f7;
-  border: 0.2em solid goldenrod;
-  border-radius: 10%;
-  margin: 5em;
-  align-self: center;
-}
 
 .results-section, section {
   display: flex;
@@ -235,8 +211,15 @@ li:focus {
 
 .result {
   align-self: center;
-  margin-top: 10px;
+  margin: 5%;
   width: 100px;
+}
+
+.output {
+  width: 100px;
+  background-color: #f8f5f7;
+  border-radius: 10%;
+  align-self: center;
 }
 
 .intro-article {
@@ -249,13 +232,13 @@ li:focus {
 
 /* Fade in the currently hovered item */
 
-
+/*
 button:focus {
   animation: pulse 2s infinite;
 }
 button:hover {
   animation: none;
-}
+}*/
 
 @-webkit-keyframes pulse {
   0% {
