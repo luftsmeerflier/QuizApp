@@ -140,6 +140,10 @@ form#start-quiz, form#restart {
   align-self: center;
 }
 
+legend {
+  visibility: hidden;
+}
+
 article.article-header > div > p {
   color: #95daa8;
   margin: 20px;
