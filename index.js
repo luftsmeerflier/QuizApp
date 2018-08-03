@@ -203,48 +203,46 @@ App.quizPage.updateStatusBar = function(){
 }	
 
 App.quizPage.selectOption = function(answer){
-	$('.options').each(function(event){
-		$(event.currentTarget).removeClass('correct');
-		$(event.currentTarget).removeClass('incorrect');
-      innerFunction(selectedAnswer());
-	});
+        $('.options').each(function(event){
+                $(event.currentTarget).removeClass('correct');
+                $(event.currentTarget).removeClass('incorrect');
+        });
+        $('.options').on('click keypress',function(event){
+           if(event.type === 'click'){
+                innerFunction();
+        } else if(event.type === 'keypress'){
+        const code = event.charCode || event.keyCode;
+        if((code === 32) || (code === 13)){
+                        innerFunction();
+        }
+    }
+        });
 
-   function selectedAnswer = function(){
-   $('.options').on('click keypress',function(event){
-         if(event.type === 'click'){
-            innerFunction();
-         } else if(event.type === 'keypress'){
-           const code = event.charCode || event.keyCode;
-           if((code === 32) || (code === 13)){
-               innerFunction();
-           }
-       }
 
-	function innerFunction(){
-		let currentTarget = $(event.currentTarget);
-		let val = currentTarget.html();
-		if(val == answer){
-			currentTarget.addClass('animate-correct');
-			App.answers.push('correct');
-			$('h1').replaceWith(`<h1>Correct!</h1>`);
-		} else {
-			currentTarget.addClass('animate-incorrect');
-			App.answers.push('incorrect');
-			$('h1').replaceWith(`<h1>Incorrect - it's ${answer}</h1>`);
-		}
-		//find out value of last answer
-		if(App.answers[App.answers.length - 1] == 'correct'){
-			setTimeout(function(){
-				App.renderWindow();
-			}, 250);
-		} else {
-			setTimeout(function(){
-				App.renderWindow();
-			}, 1000);
-		}
-	}
+        function innerFunction(){
+                let currentTarget = $(event.currentTarget);
+                let val = currentTarget.html();
+                if(val == answer){
+                        currentTarget.addClass('animate-correct');
+                        App.answers.push('correct');
+                        $('h1').replaceWith(`<h1>Correct!</h1>`);
+                } else {
+                        currentTarget.addClass('animate-incorrect');
+                        App.answers.push('incorrect');
+                        $('h1').replaceWith(`<h1>Incorrect - it's ${answer}</h1>`);
+                }
+                //find out value of last answer
+                if(App.answers[App.answers.length - 1] == 'correct'){
+                        setTimeout(function(){
+                                App.renderWindow();
+                        }, 250);
+                } else {
+                        setTimeout(function(){
+                                App.renderWindow();
+                        }, 1000);
+                }
+        }
 }
-
 
 
 // a11y
