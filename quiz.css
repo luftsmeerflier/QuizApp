@@ -69,26 +69,24 @@
 /*****************End of Status bar****************/
 
 
-
-/*li:active, li:focus
-*/
-.example-boxes { visibility: hidden; }
+/************Answer selection animations***********/
+.multiple-choice-buttons { visibility: hidden; }
 /* Prevents :hover from triggering in the gaps between items */
 
-.example-boxes > * { visibility: visible; }
+.multiple-choice-buttons > .options { visibility: visible; }
 /* Brings the child items back in, even though the parent is `hidden` */
 
-.example-boxes > * { transition: opacity 150ms linear 100ms, transform 150ms ease-in-out 100ms; }
+.multiple-choice-buttons > .options { transition: opacity 150ms linear 100ms, transform 150ms ease-in-out 100ms; }
 /* Makes the fades smooth with a slight delay to prevent jumps as the mouse moves between items */
 
-.example-boxes:hover > * { opacity: 0.4; transform: scale(0.9); }
+.multiple-choice-buttons:hover > .options { opacity: 0.4; transform: scale(0.9); }
 /* Fade out all items when the parent is hovered */
 
-.example-boxes > *:hover { opacity: 1; transform: scale(1); transition-delay: 0ms, 0ms; }
+.multiple-choice-buttons > .options:hover { opacity: 1; transform: scale(1); transition-delay: 0ms, 0ms; }
 /* Fade in the currently hovered item */
 
-button.options:focus { transform: scale(1.2); font-size: 2em;
- z-index: 9998;
+button.options:focus { transform: scale(1.2); font-size: 2em; 
+
 }
 
 
@@ -134,11 +132,6 @@ button.options:focus { transform: scale(1.2); font-size: 2em;
     0 calc(100% - 20px)      /* bottom left */
   );
 }
-/*
-a:active, a:focus,
-li:active, li:focus {border: 5px solid orange}
-*/
-
 
 /*Various effects*/
 
@@ -168,11 +161,6 @@ li:active, li:focus {border: 5px solid orange}
 	100% { opacity: 1; }
 /*	100.0%  {background-color: green;}
 */}
-
-* {
-    box-sizing: border-box;
-}
-
 .lightning {
   background-image: url('./lightning-icon.png');
   background-size: cover;

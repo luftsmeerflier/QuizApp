@@ -83,7 +83,7 @@ App.landingPage.unclickedBoxes = function(){
       event.preventDefault();
       const num = $(event.currentTarget).data('id');
       App.VALUES.push(num);
-      $(event.currentTarget).find('li').empty().append('1');
+      $(event.currentTarget).find('li').empty().   append('1');
       $(event.currentTarget).removeClass('unclicked');
       $(event.currentTarget).addClass('clicked');
       $(event.currentTarget).addClass('active');
@@ -371,7 +371,7 @@ App.quizPage.createOptionBoxes = function(answer, numberArray){
 	$('main').append(
 		`
 			<form class="example-boxes">
-            <fieldset>
+            <fieldset class='multiple-choice-buttons'>
                <legend>Select an answer</legend>
    				<button class='options' type="button"></button>
    				<button class='options' type="button"></button>

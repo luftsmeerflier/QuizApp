@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
 html {
   background-image: url("./silicon-chip.jpg");
   background-size: cover;
@@ -9,6 +10,7 @@ html {
 }
 
 body {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   display: flex;
@@ -27,7 +29,6 @@ aside {
   background-color: #7abf8d;
   width: 75%;
   align-self: center;
-  padding: 2.5%;
 }
 
 header {
@@ -35,9 +36,9 @@ header {
 }
 
 main {
-  min-height: 100vh;
   background-color: rgba(149, 218, 168, 0.59);
   display: flex;
+  height: 100vh;
   flex-direction: column;
   align-items: center;
   width: 80%;
@@ -48,7 +49,6 @@ article {
   flex-direction: column;
   width: 100%;
   align-self: center;
-  padding: 1em;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -144,6 +144,8 @@ form#start-quiz, form#restart {
 
 legend {
   visibility: hidden;
+  color: #95daa8;
+  color: blue;
 }
 
 article.article-header > div > p {
@@ -195,10 +197,7 @@ section {
 
 .result {
   align-self: center;
-  width: auto;
   background-color: #7abf8d;
-  border-radius: 5px;
-  padding: 10px;
 }
 
 .intro-article {
