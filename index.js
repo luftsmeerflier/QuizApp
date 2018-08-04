@@ -83,7 +83,7 @@ App.landingPage.unclickedBoxes = function(){
       event.preventDefault();
       const num = $(event.currentTarget).data('id');
       App.VALUES.push(num);
-      $(event.currentTarget).find('li').append('1');
+      $(event.currentTarget).find('li').empty().append('1');
       $(event.currentTarget).removeClass('unclicked');
       $(event.currentTarget).addClass('clicked');
       $(event.currentTarget).addClass('active');
