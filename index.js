@@ -139,7 +139,7 @@ App.quizPage.generateQuizPage = function(answer){
 App.quizPage.restart = function(){ 
    $('.article-header').empty();
    $('.article-header').append(`<h2>You got ${App.quizPage.correct()} out of ${App.numQuestions} correct!</h2>`);
-   $('.multiple-choice').remove();
+   $('.example-boxes').remove();
 
    $('.boxes').remove();
    App.landingPage.generateBoxes();
