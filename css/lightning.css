@@ -3,7 +3,7 @@
 }
 
 .lightning {
-  background-image: url('./lightning-icon.png');
+  background-image: url('./assets/lightning-icon.png');
   background-size: cover;
   padding-top:   padding-top: calc(20% - 2em);
   margin-top: 2px;

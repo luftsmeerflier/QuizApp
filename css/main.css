@@ -3,7 +3,7 @@
 }
 
 html {
-  background-image: url("./silicon-chip.jpg");
+  background-image: url("./assets/silicon-chip.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -89,7 +89,7 @@ button.box.lightning {
 }
 
 /*JS functionality*/
-.box, .clicked{
+.box, .clicked {
   flex-basis: 20%;
   align-items: stretch;
   background-color: white;
