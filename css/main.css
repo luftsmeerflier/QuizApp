@@ -3,7 +3,7 @@
 }
 
 html {
-  background-image: url("./assets/silicon-chip.jpg");
+  background-image: url("../assets/silicon-chip.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -26,7 +26,7 @@ main, header, .result, aside{
 }
 
 aside {
-  background-color: #7abf8d;
+  background-color: green;
   width: 75%;
   align-self: center;
 }
@@ -74,7 +74,7 @@ p.invisible {
 }
 
 button{      
-  background-color: rgb(240, 249, 240);
+  background-color: green;
     border-radius: 10px;
     border:none;
     background-image:none;
@@ -99,7 +99,7 @@ button.box.lightning {
 }
 
 .clicked {
-  background-image: url('./lightning-icon.png'); 
+  background-image: url('../assets/lightning-icon.png'); 
   background-size: cover;
 }
 
@@ -177,7 +177,7 @@ header {
 
 .clicked {
   color: white;
-  content: url('./lightning-icon.png');
+  content: url('../assets/lightning-icon.png');
   width: 20%;
   height: 20%;
 }
@@ -197,7 +197,7 @@ section {
 
 .result {
   align-self: center;
-  background-color: #7abf8d;
+  background-color: green;
 }
 
 .intro-article {
